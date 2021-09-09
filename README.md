@@ -39,3 +39,14 @@
 - [ ] Edit meal
 - [ ] My orders (Filter by status)
 - [ ] Order details
+
+# Project Structure
+
+> - _src_ // root of project
+>   - _**generated**_ // Apollo generated types for GraphQL
+>   - _components_ // UI components
+>   - _context_ // context stores
+>   - _hooks_ // who doesn't like hooks lol
+>   - _pages_ // all the pages
+>   - _routers_ // routers like signedInRouter and signedOutRouter
+>   - _styles_ // styles and configuration, mostly tailwind stuffs
