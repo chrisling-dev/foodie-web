@@ -42,11 +42,12 @@
 
 # Project Structure
 
-> - _src_ // root of project
->   - _**generated**_ // Apollo generated types for GraphQL
->   - _components_ // UI components
->   - _context_ // context stores
->   - _hooks_ // who doesn't like hooks lol
->   - _pages_ // all the pages
->   - _routers_ // routers like signedInRouter and signedOutRouter
->   - _styles_ // styles and configuration, mostly tailwind stuffs
+> - **src** // root of project
+>   - **\_\_generated\_\_** // Apollo generated types for GraphQL
+>   - **components** // UI components
+>   - **context** // context stores
+>   - **hooks** // who doesn't like hooks lol
+>   - **pages** // all the pages
+>   - **router** // routers like signedInRouter and signedOutRouter
+>   - **styles** // styles and configuration, mostly tailwind stuffs
+>   - **utils** // things I don't know where to put
