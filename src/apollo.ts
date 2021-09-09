@@ -18,7 +18,7 @@ const httpLink = createHttpLink({
 const authLink = setContext((_, { headers }) => ({
   headers: {
     ...headers,
-    Authorization: `Bearer #${authTokenVar()}`,
+    Authorization: `Bearer ${authTokenVar()}`,
   },
 }));
 
