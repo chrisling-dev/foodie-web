@@ -27,8 +27,10 @@ const Header = () => {
       transform duration-300`}
     >
       <div className=" z-30 bg-white shadow-md w-full relative flex h-full items-center justify-between px-4">
-        <Logo />
-        <SearchBar />
+        <div className=" flex h-full items-center w-full max-w-lg">
+          <Logo />
+          <SearchBar />
+        </div>
         <div
           className={`hover:text-primary md:hidden cursor-pointer transform duration-300 text-gray-700`}
           onClick={toggleShowMenu}
