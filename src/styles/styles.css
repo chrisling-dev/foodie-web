@@ -663,6 +663,10 @@ body {
   z-index: 20;
 }
 
+.z-40 {
+  z-index: 40;
+}
+
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -722,6 +726,14 @@ body {
 
 .max-w-xs {
   max-width: 20rem;
+}
+
+.max-w-md {
+  max-width: 28rem;
+}
+
+.max-w-lg {
+  max-width: 32rem;
 }
 
 .-translate-y-1\/2 {
@@ -867,6 +879,10 @@ body {
 
 .p-4 {
   padding: 1rem;
+}
+
+.p-0 {
+  padding: 0px;
 }
 
 .px-3 {
@@ -1087,6 +1103,14 @@ body {
     position: static;
   }
 
+  .md\:left-auto {
+    left: auto;
+  }
+
+  .md\:right-0 {
+    right: 0px;
+  }
+
   .md\:mr-3 {
     margin-right: 0.75rem;
   }
@@ -1103,8 +1127,17 @@ body {
     height: auto;
   }
 
+  .md\:max-h-full {
+    max-height: 100%;
+  }
+
   .md\:w-auto {
     width: auto;
+  }
+
+  .md\:w-max {
+    width: -webkit-max-content;
+    width: max-content;
   }
 
   .md\:flex-row {
@@ -1115,9 +1148,23 @@ body {
     padding: 0px;
   }
 
+  .md\:p-4 {
+    padding: 1rem;
+  }
+
   .md\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+  }
+
+  .md\:py-0 {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  .md\:py-4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 
   .md\:shadow-none {

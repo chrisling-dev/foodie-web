@@ -36,7 +36,7 @@ const Header = () => {
           <IoMdMenu size={22} />
         </div>
         <div
-          className={` z-30 absolute flex bg-white bg-blur bg-opacity-60 p-4 top-full left-0 w-full flex-col shadow-md md:shadow-none md:static md:w-auto md:h-auto md:flex-row md:p-0 transform duration-700 ${
+          className={` z-30 absolute flex bg-white bg-blur bg-opacity-60 p-4 top-full left-0 w-full flex-col shadow-md md:shadow-none md:static md:w-auto md:h-auto md:flex-row md:p-0 transform duration-700 md:max-h-full ${
             showMenu ? " max-h-48 " : " overflow-hidden max-h-0 py-0"
           }`}
         >
