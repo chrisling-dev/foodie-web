@@ -2,9 +2,11 @@ import React from "react";
 import { useState } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import ErrorMessage from "../error-message/error-message";
 
 interface IProps extends React.HTMLProps<HTMLInputElement> {
   containerClassName?: string;
+  error?: string;
   innerContainerClassName?: string;
   inputClassName?: string;
   label?: string;
@@ -17,6 +19,7 @@ interface IProps extends React.HTMLProps<HTMLInputElement> {
 }
 const Input: React.FC<IProps> = ({
   containerClassName,
+  error,
   innerContainerClassName,
   inputClassName,
   label,
@@ -41,7 +44,7 @@ const Input: React.FC<IProps> = ({
       >
         <div>{prefix}</div>
         <input
-          className={`focus:outline-none bg-transparent w-full caret-gray-400 ${inputClassName}`}
+          className={`focus:outline-none text-gray-700 bg-transparent w-full caret-gray-400 ${inputClassName}`}
           placeholder={placeholder}
           type={
             type === "password" ? (showPassword ? "text" : "password") : type
@@ -68,6 +71,7 @@ const Input: React.FC<IProps> = ({
           )}
         </div>
       </div>
+      {error ? <ErrorMessage className=" mt-2">{error}</ErrorMessage> : ""}
     </div>
   );
 };

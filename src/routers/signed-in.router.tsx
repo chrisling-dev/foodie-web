@@ -5,7 +5,7 @@ const SignedInRouter = () => {
   return (
     <Switch>
       {publicRoutes.map((path) => (
-        <Route {...path} exact={true} />
+        <Route key={`${path.path}_key`} {...path} exact={true} />
       ))}
     </Switch>
   );

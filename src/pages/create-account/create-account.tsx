@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import Logo from "../../assets/logo";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
+import ErrorMessage from "../../components/error-message/error-message";
 import useHideHeader from "../../hooks/useHideHeader";
 import {
   createAccount,
@@ -13,7 +14,7 @@ import {
 
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccount($input: CreateAccountInput!) {
-    createAccount(input: $CreateAccountInput) {
+    createAccount(input: $input) {
       ok
       accessToken
       error {
@@ -43,13 +44,18 @@ const CreateAccount = () => {
 
   const navigateToSignIn = () => history.push("/sign-in");
 
-  console.log(formState.errors);
   const onCreateAccount = (
     e: React.FormEvent<HTMLFormElement> | React.FormEvent<HTMLButtonElement>
   ) => {
     if (e) e.preventDefault();
     const { email, name, password } = getValues();
-    console.log(email, name, password);
+    try {
+      createAccountMutation({
+        variables: { input: { email, name, password } },
+      });
+    } catch (error) {
+      // log error with sentry or other logging tools
+    }
   };
   return (
     <div className=" min-w-screen min-h-screen bg-blue-50 flex flex-col items-center">
@@ -73,6 +79,7 @@ const CreateAccount = () => {
                 required: "Please enter your name.",
               })}
               containerClassName=" mb-3"
+              error={formState.errors.name?.message || ""}
               label="Name"
               placeholder={"e.g. John Doe"}
             />
@@ -83,6 +90,7 @@ const CreateAccount = () => {
                   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
               })}
               containerClassName=" mb-3"
+              error={formState.errors.email?.message || ""}
               label="E-mail"
               placeholder={"e.g. john@doe.com"}
             />
@@ -92,6 +100,7 @@ const CreateAccount = () => {
                 minLength: 6,
               })}
               containerClassName=" mb-6"
+              error={formState.errors.password?.message || ""}
               label="Password"
               placeholder="******"
               type="password"
@@ -105,6 +114,13 @@ const CreateAccount = () => {
             >
               Create Account
             </Button>
+            {data?.createAccount.error ? (
+              <ErrorMessage className={" mt-2"}>
+                {data.createAccount.error.message}
+              </ErrorMessage>
+            ) : (
+              ""
+            )}
           </form>
 
           <p className=" text-center mt-8 text-sm text-gray-400">

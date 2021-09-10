@@ -5,10 +5,10 @@ const SignedOutRouter = () => {
   return (
     <Switch>
       {signedOutRoutes.map((path) => (
-        <Route {...path} exact={true} />
+        <Route key={`${path.path}_key`} {...path} exact={true} />
       ))}
       {publicRoutes.map((path) => (
-        <Route {...path} exact={true} />
+        <Route key={`${path.path}_key`} {...path} exact={true} />
       ))}
     </Switch>
   );
