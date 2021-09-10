@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 
+.bg-blur {
+  backdrop-filter: saturate(100%) blur(4px);
+}
+
 @tailwind utilities;
 
 @layer base {
