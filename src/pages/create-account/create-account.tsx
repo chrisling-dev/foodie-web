@@ -11,6 +11,8 @@ import {
   createAccount,
   createAccountVariables,
 } from "../../__generated__/createAccount";
+import { authTokenVar, isLoggedInVar } from "../../apollo";
+import { AUTH_TOKEN } from "../../utils/constants";
 
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccount($input: CreateAccountInput!) {
@@ -36,7 +38,17 @@ const CreateAccount = () => {
   const [createAccountMutation, { loading, data }] = useMutation<
     createAccount,
     createAccountVariables
-  >(CREATE_ACCOUNT_MUTATION);
+  >(CREATE_ACCOUNT_MUTATION, {
+    onCompleted: (data) => {
+      const accessToken = data.createAccount.accessToken;
+      if (accessToken) {
+        localStorage.setItem(AUTH_TOKEN, accessToken);
+        authTokenVar(accessToken);
+        isLoggedInVar(true);
+        history.push("/");
+      }
+    },
+  });
 
   const { formState, getValues, register } = useForm<CreateAccountFormProps>({
     mode: "onChange",
