@@ -1,16 +1,45 @@
+import { gql, useMutation } from "@apollo/client";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import Logo from "../../assets/logo";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
 import useHideHeader from "../../hooks/useHideHeader";
+import {
+  createAccount,
+  createAccountVariables,
+} from "../../__generated__/createAccount";
+
+const CREATE_ACCOUNT_MUTATION = gql`
+  mutation createAccount($input: CreateAccountInput!) {
+    createAccount(input: $CreateAccountInput) {
+      ok
+      accessToken
+      error {
+        code
+        message
+      }
+    }
+  }
+`;
 
 const CreateAccount = () => {
   useHideHeader();
   const history = useHistory();
+  const [createAccountMutation, { loading, data }] = useMutation<
+    createAccount,
+    createAccountVariables
+  >(CREATE_ACCOUNT_MUTATION);
 
   const navigateToSignIn = () => history.push("/sign-in");
+
+  const onCreateAccount = (
+    e: React.FormEvent<HTMLFormElement> | React.FormEvent<HTMLButtonElement>
+  ) => {
+    if (e) e.preventDefault();
+  };
   return (
-    <div className=" min-w-screen min-h-screen bg-gray-50 flex flex-col items-center">
+    <div className=" min-w-screen min-h-screen bg-blue-50 flex flex-col items-center">
       <div className="mb-20 w-full bg-primary p-4 flex items-center justify-center">
         <Logo color="white" />
       </div>
@@ -24,7 +53,7 @@ const CreateAccount = () => {
         <h1 className=" font-semibold text-primary text-xl mb-3">
           Create Account
         </h1>
-        <form>
+        <form onSubmit={onCreateAccount}>
           <Input
             containerClassName=" mb-3"
             label="Name"
@@ -41,7 +70,12 @@ const CreateAccount = () => {
             placeholder="******"
             type="password"
           />
-          <Button className=" w-full" appearance="primary" intent="primary">
+          <Button
+            className=" w-full"
+            appearance="primary"
+            intent="primary"
+            onClick={onCreateAccount}
+          >
             Create Account
           </Button>
         </form>
