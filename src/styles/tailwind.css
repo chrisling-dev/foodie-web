@@ -5,6 +5,14 @@
   backdrop-filter: saturate(100%) blur(4px);
 }
 
+.form-box {
+  @apply bg-white rounded-2xl p-4 w-full max-w-md shadow-lg;
+}
+
+.transform-300 {
+  @apply transform duration-300;
+}
+
 @tailwind utilities;
 
 @layer base {
