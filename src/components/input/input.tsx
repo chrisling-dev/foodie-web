@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 interface IProps extends React.HTMLProps<HTMLInputElement> {
@@ -10,6 +11,7 @@ interface IProps extends React.HTMLProps<HTMLInputElement> {
   labelClassName?: string;
   placeholder?: string;
   prefix?: any;
+  register?: UseFormRegisterReturn;
   suffix?: any;
   type?: string;
 }
@@ -19,10 +21,16 @@ const Input: React.FC<IProps> = ({
   inputClassName,
   label,
   labelClassName,
+  name,
+  onBlur,
+  onChange,
   placeholder,
   prefix,
+  ref,
+  register,
   suffix,
   type,
+  value,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
@@ -38,6 +46,14 @@ const Input: React.FC<IProps> = ({
           type={
             type === "password" ? (showPassword ? "text" : "password") : type
           }
+          {...(register
+            ? register
+            : {
+                onBlur,
+                onChange,
+                name,
+                value,
+              })}
         />
         <div>
           {type === "password" ? (
