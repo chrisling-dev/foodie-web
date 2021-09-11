@@ -1,6 +1,9 @@
-import { Route, Switch } from "react-router-dom";
+import { useEffect } from "react";
+import { Route, Switch, useHistory } from "react-router-dom";
+import { authTokenVar, isLoggedInVar } from "../apollo";
 import Loader from "../components/loader/loader";
 import useMe from "../hooks/queries/useMe";
+import { AUTH_TOKEN } from "../utils/constants";
 import { UserRole } from "../__generated__/globalTypes";
 import {
   publicRoutes,
@@ -9,8 +12,18 @@ import {
 } from "./paths";
 
 const SignedInRouter = () => {
-  const { data, loading } = useMe();
-  console.log(data, loading);
+  const history = useHistory();
+  const { data, loading, error } = useMe();
+
+  useEffect(() => {
+    if (!loading && error && error.message === "Forbidden resource") {
+      localStorage.removeItem(AUTH_TOKEN);
+      authTokenVar(null);
+      history.push("/sign-in");
+      isLoggedInVar(false);
+    }
+  }, [loading, error, history]);
+
   return loading ? (
     <div className={"w-full flex items-center justify-center mt-20"}>
       <Loader />
