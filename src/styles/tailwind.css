@@ -14,7 +14,7 @@
 }
 
 .transform-300 {
-  @apply transform duration-300;
+  @apply duration-300;
 }
 
 @tailwind utilities;

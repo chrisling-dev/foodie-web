@@ -1,10 +1,14 @@
+import { useState } from "react";
 import Button from "../../components/button/button";
+import Input from "../../components/input/input";
+import Modal from "../../components/modal/modal";
 import PageContainer from "../../components/page-container/page-container";
 import useMe from "../../hooks/queries/useMe";
 import useSignOut from "../../hooks/useSignOut";
 
 const MyProfile = () => {
   const signOut = useSignOut();
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const { data } = useMe();
 
   return (
@@ -22,7 +26,11 @@ const MyProfile = () => {
           </div>
         </div>
         <div className=" w-full flex items-center justify-center flex-col mt-12">
-          <Button className=" my-4" intent="primary">
+          <Button
+            className=" my-4"
+            intent="primary"
+            onClick={setShowConfirmation.bind(this, true)}
+          >
             Start selling on foodie
           </Button>
           <Button appearance="minimal" intent="danger" onClick={signOut}>
@@ -30,6 +38,33 @@ const MyProfile = () => {
           </Button>
         </div>
       </div>
+      <Modal title="Switching to Seller Profile" showModal={showConfirmation}>
+        <p className=" text-sm">
+          By confirming, your account will be{" "}
+          <span className=" italic text-red-400 font-semibold">
+            permanently
+          </span>{" "}
+          switched to a seller account. This means that:
+          <br />
+          <p className=" italic mt-4">
+            1) You will be able to sell your food like others do on our Explore
+            page.
+          </p>
+          <p className=" italic mt-4">
+            2) You won't be able to order from any restaurants with this account
+            on Foodie.
+          </p>
+        </p>
+        <br />
+        <p className=" text-xs italic">
+          To confirm, please repeat your e-mail{" "}
+          <span className=" bg-primary text-white px-1 rounded-md">
+            {data?.me?.email}
+          </span>{" "}
+          below.
+        </p>
+        <Input containerClassName="mt-2" placeholder={data?.me?.email} />
+      </Modal>
     </PageContainer>
   );
 };
