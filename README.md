@@ -1,7 +1,7 @@
 # Write an application for Food Delivery
 
-- [ ] User must be able to create an account and log in.
-- [ ] Implement 2 roles with different permission levels
+- [x] User must be able to create an account and log in.
+- [x] Implement 2 roles with different permission levels
   - Regular User: Can see all restaurants and place orders from them
   - Restaurant Owner: Can CRUD restaurants and meals
 - [ ] A Restaurant should have a name and description of the type of food they serve
@@ -23,8 +23,8 @@
 
 ## Regular User flows (Screens)
 
-- [ ] Sign In
-- [ ] Create Account
+- [x] Sign In
+- [x] Create Account
 - [ ] Profile (Can permanently switch to Restaurant Role from Profile)
 - [ ] Explore (Browse list of restaurants and their food)
 - [ ] Restaurants' meals (When user clicks into a restaurant, they can see all food offered by the restaurant)

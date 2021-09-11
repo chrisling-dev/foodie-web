@@ -38,7 +38,7 @@ const SignedInRouter = () => {
         restaurantOwnersRoutes.map((path) => (
           <Route key={`${path.path}_key`} {...path} exact={true} />
         ))}
-      {publicRoutes.map((path) => (
+      {publicRoutes(data?.me.role).map((path) => (
         <Route key={`${path.path}_key`} {...path} exact={true} />
       ))}
     </Switch>

@@ -10,10 +10,11 @@ import MyRestaurant from "../pages/my-restaurant/my-restaurant";
 import NotFound from "../pages/not-found/not-found";
 import Restaurant from "../pages/restaurant/restaurant";
 import SignIn from "../pages/sign-in/sign-in";
+import { UserRole } from "../__generated__/globalTypes";
 
-export const publicRoutes = [
+export const publicRoutes = (role?: UserRole) => [
   {
-    component: Explore,
+    component: role === UserRole.RestaurantOwner ? Dashboard : Explore,
     path: "/",
   },
   {
