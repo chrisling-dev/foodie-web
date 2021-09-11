@@ -18,6 +18,11 @@ export interface CreateAccountInput {
   name: string;
 }
 
+export interface SignInInput {
+  email: string;
+  password: string;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

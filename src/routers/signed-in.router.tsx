@@ -10,8 +10,9 @@ import {
 
 const SignedInRouter = () => {
   const { data, loading } = useMe();
+  console.log(data, loading);
   return loading ? (
-    <div className={"w-full flex items-center justify-center"}>
+    <div className={"w-full flex items-center justify-center mt-20"}>
       <Loader />
     </div>
   ) : (
