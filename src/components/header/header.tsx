@@ -3,30 +3,65 @@ import { useHistory } from "react-router-dom";
 import { IoMdMenu } from "react-icons/io";
 import Logo from "../../assets/logo";
 import headerContext from "../../context/header.context";
-import Button from "../button/button";
 import SearchBar from "./search-bar/search-bar";
 import { useState } from "react";
 import useMe from "../../hooks/queries/useMe";
 import { useReactiveVar } from "@apollo/client";
 import { isLoggedInVar } from "../../apollo";
 import { UserRole } from "../../__generated__/globalTypes";
+import ResponsiveMenu from "./responsive-menu/responsive-menu";
 
+const regularUsersMenu = [
+  {
+    name: "Explore Food",
+    path: "/",
+  },
+  {
+    name: "My Orders",
+    path: "/my-orders",
+  },
+  {
+    name: "My Profile",
+    path: "/my-profile",
+  },
+];
+const restaurantOwnersMenu = [
+  {
+    name: "Dashboard",
+    path: "/dashboard",
+  },
+  {
+    name: "My Profile",
+    path: "/my-profile",
+  },
+];
+
+const signedOutMenu = [
+  {
+    name: "Sign In",
+    path: "/sign-in",
+    focus: true,
+  },
+  {
+    name: "Create Account",
+    path: "/create-account",
+  },
+];
 const Header = () => {
   const history = useHistory();
   const { isHeaderShown } = useContext(headerContext);
   const { data } = useMe();
   const isLoggedIn = useReactiveVar(isLoggedInVar);
 
-  console.log(data);
   const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     if (!isHeaderShown) setShowMenu(false);
   }, [isHeaderShown]);
 
-  const onNavigate = (path: string) => {
+  const onNavigate = (path?: string) => {
+    if (path) history.push(path);
     setShowMenu(false);
-    history.push(path);
   };
 
   const toggleShowMenu = () => setShowMenu(!showMenu);
@@ -35,54 +70,46 @@ const Header = () => {
     <div
       className={` ${
         isHeaderShown ? " h-16" : " h-0 overflow-hidden"
-      } sticky top-0
-      
-      transform duration-300`}
+      } sticky top-0 z-30 transform duration-300`}
     >
-      <div className=" z-30 bg-white shadow-md w-full relative flex h-full items-center justify-between px-4">
+      <div className="z-30 bg-white shadow-md w-full relative flex h-full items-center justify-between px-4">
         <div className=" flex h-full items-center w-full max-w-lg">
           <Logo onClick={onNavigate.bind(this, "/")} />
-          <SearchBar />
+          <SearchBar hideMenu={setShowMenu.bind(this, false)} />
+        </div>
+        <div
+          className={`hover:text-primary lg:hidden cursor-pointer transform duration-300 text-gray-700`}
+          onClick={toggleShowMenu}
+        >
+          <IoMdMenu size={22} />
         </div>
         {isLoggedIn ? (
-          <div>
-            {data?.me.role === UserRole.RegularUser ? "User" : ""}
-            {data?.me.role === UserRole.RestaurantOwner
-              ? "Restaurant Owner"
-              : ""}
-          </div>
-        ) : (
           <React.Fragment>
-            <div
-              className={`hover:text-primary md:hidden cursor-pointer transform duration-300 text-gray-700`}
-              onClick={toggleShowMenu}
-            >
-              <IoMdMenu size={22} />
-            </div>
-            <div
-              className={` z-30 absolute flex bg-white bg-blur bg-opacity-60 p-4 top-full left-0 w-full flex-col shadow-md md:shadow-none md:static md:w-auto md:h-auto md:flex-row md:p-0 transform duration-700 md:max-h-full ${
-                showMenu ? " max-h-48 " : " overflow-hidden max-h-0 py-0"
-              }`}
-            >
-              <Button
-                className={" mb-3 md:mb-0 md:mr-3"}
-                onClick={onNavigate.bind(this, "/sign-in")}
-                fontSize={"sm"}
-                appearance={"primary"}
-                intent={"primary"}
-              >
-                Sign In
-              </Button>
-              <Button
-                onClick={onNavigate.bind(this, "/create-account")}
-                fontSize={"sm"}
-                appearance={"minimal"}
-                intent={"primary"}
-              >
-                Create Account
-              </Button>
-            </div>
+            {data?.me?.role === UserRole.RegularUser ? (
+              <ResponsiveMenu
+                onNavigate={onNavigate}
+                showMenu={showMenu}
+                routes={regularUsersMenu}
+              />
+            ) : (
+              ""
+            )}
+            {data?.me?.role === UserRole.RestaurantOwner ? (
+              <ResponsiveMenu
+                onNavigate={onNavigate}
+                showMenu={showMenu}
+                routes={restaurantOwnersMenu}
+              />
+            ) : (
+              ""
+            )}
           </React.Fragment>
+        ) : (
+          <ResponsiveMenu
+            onNavigate={onNavigate}
+            showMenu={showMenu}
+            routes={signedOutMenu}
+          />
         )}
       </div>
       <div

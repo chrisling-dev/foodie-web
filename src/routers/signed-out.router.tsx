@@ -9,7 +9,7 @@ const SignedOutRouter = () => {
       {signedOutRoutes.map((path) => (
         <Route key={`${path.path}_key`} {...path} exact={true} />
       ))}
-      {publicRoutes(data?.me.role).map((path) => (
+      {publicRoutes(data?.me?.role).map((path) => (
         <Route key={`${path.path}_key`} {...path} exact={true} />
       ))}
     </Switch>

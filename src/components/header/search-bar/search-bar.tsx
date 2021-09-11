@@ -1,9 +1,14 @@
 import React from "react";
 import { IoMdSearch } from "react-icons/io";
 import { useHistory } from "react-router-dom";
-const SearchBar = () => {
+
+interface IProps {
+  hideMenu: () => any;
+}
+const SearchBar: React.FC<IProps> = ({ hideMenu }) => {
   const history = useHistory();
   const onFocus = () => {
+    hideMenu();
     history.push("/");
   };
   return (

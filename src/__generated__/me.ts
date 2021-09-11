@@ -18,5 +18,5 @@ export interface me_me {
 }
 
 export interface me {
-  me: me_me;
+  me: me_me | null;
 }

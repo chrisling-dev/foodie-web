@@ -40,6 +40,10 @@ export const restaurantOwnersRoutes = [
     path: "/dashboard",
   },
   {
+    component: MyProfile,
+    path: "/my-profile",
+  },
+  {
     component: MyRestaurant,
     path: "/my-restaurant/:restaurantId",
   },

@@ -13,7 +13,7 @@ import {
 
 const SignedInRouter = () => {
   const history = useHistory();
-  const { data, loading, error } = useMe();
+  const { data, loading, error } = useMe({ fetchPolicy: "network-only" });
 
   useEffect(() => {
     if (!loading && error && error.message === "Forbidden resource") {
@@ -30,15 +30,15 @@ const SignedInRouter = () => {
     </div>
   ) : (
     <Switch>
-      {data?.me.role === UserRole.RegularUser &&
+      {data?.me?.role === UserRole.RegularUser &&
         regularUsersRoutes.map((path) => (
           <Route key={`${path.path}_key`} {...path} exact={true} />
         ))}
-      {data?.me.role === UserRole.RestaurantOwner &&
+      {data?.me?.role === UserRole.RestaurantOwner &&
         restaurantOwnersRoutes.map((path) => (
           <Route key={`${path.path}_key`} {...path} exact={true} />
         ))}
-      {publicRoutes(data?.me.role).map((path) => (
+      {publicRoutes(data?.me?.role).map((path) => (
         <Route key={`${path.path}_key`} {...path} exact={true} />
       ))}
     </Switch>

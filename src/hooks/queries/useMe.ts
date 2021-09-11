@@ -1,7 +1,7 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, QueryHookOptions, useQuery } from "@apollo/client";
 import { me } from "../../__generated__/me";
 
-const ME_QUERY = gql`
+export const ME_QUERY = gql`
   query me {
     me {
       id
@@ -13,8 +13,8 @@ const ME_QUERY = gql`
   }
 `;
 
-const useMe = () => {
-  return useQuery<me>(ME_QUERY);
+const useMe = (options?: QueryHookOptions) => {
+  return useQuery<me>(ME_QUERY, options);
 };
 
 export default useMe;
