@@ -14,6 +14,7 @@ interface IButtonStyles {
 interface IProps extends React.HTMLProps<HTMLButtonElement> {
   appearance?: APPEARANCE;
   intent?: INTENT;
+  fill?: boolean;
   fontSize?: "sm" | "md" | "lg";
   loading?: boolean;
   loadingLabel?: string;
@@ -23,6 +24,7 @@ const Button: React.FC<IProps> = ({
   children,
   className,
   disabled,
+  fill = false,
   fontSize,
   intent = "none",
   loading,
@@ -75,8 +77,8 @@ const Button: React.FC<IProps> = ({
     <button
       className={`${getSize()} ${
         buttonStyles[appearance][disabled ? "disabled" : intent]
-      } ${
-        disabled && "cursor-not-allowed"
+      } ${disabled && "cursor-not-allowed"} ${
+        fill && " w-full"
       } px-3 py-2 rounded-lg min-w-max transform duration-300 ${className}`}
       disabled={disabled}
       onClick={onClick}

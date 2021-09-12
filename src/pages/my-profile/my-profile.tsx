@@ -64,6 +64,21 @@ const MyProfile = () => {
           below.
         </p>
         <Input containerClassName="mt-2" placeholder={data?.me?.email} />
+        <Button
+          className=" mt-4"
+          fill={true}
+          appearance="primary"
+          intent="danger"
+        >
+          Switch to Restaurant Profile
+        </Button>
+        <Button
+          className=" mt-3"
+          fill={true}
+          onClick={setShowConfirmation.bind(this, false)}
+        >
+          Cancel
+        </Button>
       </Modal>
     </PageContainer>
   );
