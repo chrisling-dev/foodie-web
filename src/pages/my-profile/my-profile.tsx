@@ -39,7 +39,6 @@ const MyProfile = () => {
       onCompleted: ({ switchToRestaurantOwner: { ok, error } }) => {
         if (ok) {
           const oldData = apolloClient.readQuery<me>({ query: ME_QUERY });
-          console.log(oldData);
           apolloClient.writeQuery<me>({
             query: ME_QUERY,
             data: {

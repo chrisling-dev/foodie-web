@@ -27,9 +27,9 @@
 
 @layer utilities {
   @variants responsive {
-    .px-20pc {
-      padding-left: 20%;
-      padding-right: 20%;
+    .px-10pc {
+      padding-left: 10%;
+      padding-right: 10%;
     }
   }
 }
