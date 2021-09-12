@@ -12,13 +12,42 @@ import Button from "../../components/button/button";
 import ImagePicker from "../../components/image-picker/image-picker";
 import Input from "../../components/input/input";
 import PageContainer from "../../components/page-container/page-container";
+import { gql, useApolloClient, useMutation } from "@apollo/client";
+import {
+  createRestaurant,
+  createRestaurantVariables,
+} from "../../__generated__/createRestaurant";
+import { MY_RESTAURANTS } from "../dashboard/dashboard";
+import { myRestaurants } from "../../__generated__/myRestaurants";
+import ErrorMessage from "../../components/error-message/error-message";
+import { useHistory } from "react-router-dom";
+
+const CREATE_RESTAURANT_MUTATION = gql`
+  mutation createRestaurant($input: CreateRestaurantInput!) {
+    createRestaurant(input: $input) {
+      ok
+      error {
+        code
+        message
+      }
+      restaurant {
+        id
+        name
+        description
+        backgroundImage
+        orderCounts
+      }
+    }
+  }
+`;
 
 interface IFormProps {
   name: string;
   description: string;
 }
 const CreateRestaurant = () => {
-  const { register, formState } = useForm<IFormProps>({
+  const history = useHistory();
+  const { register, formState, getValues } = useForm<IFormProps>({
     mode: "onChange",
   });
   const [coverImage, setCoverImage] = useState<File | undefined>();
@@ -26,8 +55,43 @@ const CreateRestaurant = () => {
   const [loading, setLoading] = useState(false);
   const [loadingLabel, setLoadingLabel] = useState("Creating Restaurant");
 
+  const apolloClient = useApolloClient();
+  const [createRestaurantMutation, { data }] = useMutation<
+    createRestaurant,
+    createRestaurantVariables
+  >(CREATE_RESTAURANT_MUTATION, {
+    onCompleted: ({ createRestaurant }) => {
+      setLoading(false);
+      if (createRestaurant.ok && createRestaurant.restaurant) {
+        const oldData = apolloClient.readQuery<myRestaurants>({
+          query: MY_RESTAURANTS,
+        });
+        if (oldData) {
+          apolloClient.writeQuery({
+            query: MY_RESTAURANTS,
+            data: {
+              ...oldData,
+              myRestaurants: {
+                ...oldData?.myRestaurants,
+                ok: true,
+                restaurants: [
+                  ...(oldData?.myRestaurants.restaurants
+                    ? oldData?.myRestaurants.restaurants
+                    : []),
+                  createRestaurant.restaurant,
+                ],
+              },
+            },
+          });
+        }
+
+        history.push(`/my-restaurant/${createRestaurant.restaurant.id}`);
+      }
+    },
+  });
+
   const onCreateRestaurant = () => {
-    let backgroundImage;
+    const { name, description } = getValues();
     setLoading(true);
     if (coverImage) {
       setLoadingLabel("Uploading cover photo...");
@@ -51,10 +115,27 @@ const CreateRestaurant = () => {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setLoadingLabel("Creating Restaurant");
-            backgroundImage = downloadURL;
+            createRestaurantMutation({
+              variables: {
+                input: {
+                  name,
+                  description,
+                  backgroundImage: downloadURL,
+                },
+              },
+            });
           });
         }
       );
+    } else {
+      createRestaurantMutation({
+        variables: {
+          input: {
+            name,
+            description,
+          },
+        },
+      });
     }
   };
 
@@ -87,7 +168,7 @@ const CreateRestaurant = () => {
         <Button
           className=" w-full mt-4"
           appearance="primary"
-          disabled={!formState.isValid}
+          disabled={!formState.isValid || loading}
           intent="primary"
           loading={loading}
           loadingLabel={loadingLabel}
@@ -95,6 +176,10 @@ const CreateRestaurant = () => {
         >
           Create Restaurant
         </Button>
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+        {data?.createRestaurant.error && (
+          <ErrorMessage>{data.createRestaurant.error.message}</ErrorMessage>
+        )}
       </div>
     </PageContainer>
   );

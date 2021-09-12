@@ -5,7 +5,7 @@ import Loader from "../../components/loader/loader";
 import PageContainer from "../../components/page-container/page-container";
 import { myRestaurants } from "../../__generated__/myRestaurants";
 
-const MY_RESTAURANTS = gql`
+export const MY_RESTAURANTS = gql`
   query myRestaurants {
     myRestaurants {
       ok

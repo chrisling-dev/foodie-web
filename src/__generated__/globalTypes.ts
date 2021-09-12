@@ -18,6 +18,12 @@ export interface CreateAccountInput {
   name: string;
 }
 
+export interface CreateRestaurantInput {
+  name: string;
+  description: string;
+  backgroundImage?: string | null;
+}
+
 export interface SignInInput {
   email: string;
   password: string;
