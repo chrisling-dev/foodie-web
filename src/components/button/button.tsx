@@ -79,7 +79,7 @@ const Button: React.FC<IProps> = ({
         buttonStyles[appearance][disabled ? "disabled" : intent]
       } ${disabled && "cursor-not-allowed"} ${
         fill && " w-full"
-      } px-3 py-2 rounded-lg min-w-max transform duration-300 ${className}`}
+      } px-3 py-2 rounded-lg min-w-max transform duration-300 focus:outline-none ${className}`}
       disabled={disabled}
       onClick={disabled ? () => {} : onClick}
     >
