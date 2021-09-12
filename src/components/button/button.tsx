@@ -81,7 +81,7 @@ const Button: React.FC<IProps> = ({
         fill && " w-full"
       } px-3 py-2 rounded-lg min-w-max transform duration-300 ${className}`}
       disabled={disabled}
-      onClick={onClick}
+      onClick={disabled ? () => {} : onClick}
     >
       {loading ? loadingLabel || "Loading" : children}
     </button>
