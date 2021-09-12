@@ -4,6 +4,7 @@ import Button from "../../components/button/button";
 import Loader from "../../components/loader/loader";
 import PageContainer from "../../components/page-container/page-container";
 import { myRestaurants } from "../../__generated__/myRestaurants";
+import MyRestaurantCard from "./my-restaurant-card/my-restaurant-card";
 
 export const MY_RESTAURANTS = gql`
   query myRestaurants {
@@ -23,7 +24,6 @@ const Dashboard = () => {
   const history = useHistory();
 
   const { data, loading } = useQuery<myRestaurants>(MY_RESTAURANTS);
-  console.log(data);
   return (
     <PageContainer>
       <div className=" w-full flex flex-col lg:flex-row">
@@ -34,7 +34,7 @@ const Dashboard = () => {
               <Loader />
             </div>
           ) : (
-            <div className=" grid gap-2 w-full grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+            <div className=" grid gap-3 w-full grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
               <div className=" w-full h-56 flex flex-col justify-between bg-primary rounded-lg p-3 shadow-md">
                 <div className=" w-full text-white">
                   <p className=" font-semibold text-white mb-2">
@@ -56,6 +56,9 @@ const Dashboard = () => {
                   </Button>
                 </div>
               </div>
+              {data?.myRestaurants.restaurants.map((restaurant) => (
+                <MyRestaurantCard key={restaurant.id} restaurant={restaurant} />
+              ))}
             </div>
           )}
         </div>

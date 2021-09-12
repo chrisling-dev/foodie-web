@@ -25,7 +25,7 @@
 
 - [x] Sign In
 - [x] Create Account
-- [ ] Profile (Can permanently switch to Restaurant Role from Profile)
+- [x] Profile (Can permanently switch to Restaurant Role from Profile)
 - [ ] Explore (Browse list of restaurants and their food)
 - [ ] Restaurants' meals (When user clicks into a restaurant, they can see all food offered by the restaurant)
 - [ ] Cart (If user tries to add food from a different restaurant to cart, show a prompt that asks if user is ok if we clear his current cart)
@@ -35,6 +35,7 @@
 ## Restaurant Owners flows
 
 - [ ] Restaurant dashboard
+- [x] Create restaurant
 - [ ] Add meal
 - [ ] Edit meal
 - [ ] My orders (Filter by status)
