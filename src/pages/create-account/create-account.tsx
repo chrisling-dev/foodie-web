@@ -13,6 +13,7 @@ import {
 } from "../../__generated__/createAccount";
 import { authTokenVar, isLoggedInVar } from "../../apollo";
 import { AUTH_TOKEN } from "../../utils/constants";
+import Back from "../../components/back/back";
 
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccount($input: CreateAccountInput!) {
@@ -76,12 +77,7 @@ const CreateAccount = () => {
       </div>
       <div className=" w-full p-4 flex items-center justify-center">
         <div className=" form-box">
-          <p
-            className=" w-max text-xs mb-2 cursor-pointer text-gray-400 hover:text-gray-600"
-            onClick={history.goBack}
-          >
-            &larr; Back
-          </p>
+          <Back />
           <h1 className=" font-semibold text-primary text-xl mb-3">
             Create Account
           </h1>
