@@ -78,12 +78,12 @@ const ImagePicker: React.FC<IProps> = ({
       <p className=" text-gray-400 text-sm">
         Click "Select File" or drag your image into this box.
       </p>
-      <Button className=" mt-2" onClick={onClickButton}>
+      <Button className=" mt-2" onClick={onClickButton} tabIndex={1}>
         Select File
       </Button>
       {Boolean(file) && (
         <img
-          className=" mt-3 max-h-28 max-w-xs w-full h-full"
+          className=" mt-3 max-h-28 max-w-xs w-full h-full object-cover"
           src={URL.createObjectURL(file)}
           alt={file?.name}
         />
@@ -92,6 +92,7 @@ const ImagePicker: React.FC<IProps> = ({
         className=" w-0 h-0 opacity-0"
         multiple={false}
         onChange={onChange}
+        tabIndex={1}
         ref={inputRef}
         type="file"
       />

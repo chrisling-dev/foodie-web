@@ -29,7 +29,7 @@ export const publicRoutes = (role?: UserRole) => [
 export const restaurantOwnersRoutes = [
   {
     component: AddDish,
-    path: "/add-dish",
+    path: "/add-dish/:restaurantId",
   },
   {
     component: CreateRestaurant,

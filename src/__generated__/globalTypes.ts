@@ -12,6 +12,14 @@ export enum UserRole {
   RestaurantOwner = "RestaurantOwner",
 }
 
+export interface AddDishInput {
+  name: string;
+  description?: string | null;
+  price: number;
+  photo?: string | null;
+  restaurantId: number;
+}
+
 export interface CreateAccountInput {
   email: string;
   password: string;

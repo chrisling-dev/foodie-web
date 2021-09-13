@@ -7,6 +7,9 @@ import apolloClient from "./apollo";
 import App from "./components/App";
 import "./styles/styles.css";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const firebaseConfig = {
   apiKey: "AIzaSyB0z9m4T_dCxXMCG5ALJca7btzEDMqDR9o",
   authDomain: "foodie-a5d44.firebaseapp.com",
@@ -23,6 +26,7 @@ ReactDOM.render(
     <ApolloProvider client={apolloClient}>
       <BrowserRouter>
         <App />
+        <ToastContainer />
       </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>,

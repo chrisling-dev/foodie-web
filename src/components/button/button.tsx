@@ -29,7 +29,9 @@ const Button: React.FC<IProps> = ({
   intent = "none",
   loading,
   loadingLabel,
+  tabIndex,
   onClick,
+  onKeyDown,
 }) => {
   const buttonStyles: IButtonStyles = {
     default: {
@@ -82,6 +84,8 @@ const Button: React.FC<IProps> = ({
       } px-3 py-2 rounded-lg min-w-max transform duration-300 focus:outline-none ${className}`}
       disabled={disabled}
       onClick={disabled ? () => {} : onClick}
+      onKeyDown={onKeyDown}
+      tabIndex={tabIndex}
     >
       {loading ? loadingLabel || "Loading" : children}
     </button>

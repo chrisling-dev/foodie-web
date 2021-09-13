@@ -8,7 +8,11 @@ const DishCard: React.FC<IProps> = ({ dish }) => {
   return (
     <div className=" w-full rounded-lg shadow-md overflow-hidden border border-solid border-gray-100 flex items-center hover:shadow-lg transform-300 cursor-pointer">
       {dish.photo ? (
-        <img className=" w-32 h-32" alt={dish.name} src={dish.photo} />
+        <img
+          className=" w-32 h-32 object-cover"
+          alt={dish.name}
+          src={dish.photo}
+        />
       ) : (
         <div className=" w-32 h-32 flex items-center justify-center bg-yellow-100 ">
           🍔

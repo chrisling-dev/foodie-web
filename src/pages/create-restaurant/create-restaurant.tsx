@@ -21,6 +21,7 @@ import { MY_RESTAURANTS } from "../dashboard/dashboard";
 import { myRestaurants } from "../../__generated__/myRestaurants";
 import ErrorMessage from "../../components/error-message/error-message";
 import { useHistory } from "react-router-dom";
+import { UPLOAD_FAILED_MESSAGE } from "../../utils/constants";
 
 const CREATE_RESTAURANT_MUTATION = gql`
   mutation createRestaurant($input: CreateRestaurantInput!) {
@@ -107,9 +108,7 @@ const CreateRestaurant = () => {
         () => {},
         (error) => {
           setLoading(false);
-          setError(
-            "We couldn't upload your cover photo. Please use an image file or try again later."
-          );
+          setError(UPLOAD_FAILED_MESSAGE);
           return;
         },
         () => {

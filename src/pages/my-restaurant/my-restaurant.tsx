@@ -12,7 +12,7 @@ import DishCard from "./dish-card/dish-card";
 import Button from "../../components/button/button";
 import ErrorMessage from "../../components/error-message/error-message";
 
-const MY_RESTAURANT_QUERY = gql`
+export const MY_RESTAURANT_QUERY = gql`
   query myRestaurant($input: MyRestaurantInput!) {
     myRestaurant(input: $input) {
       ok
@@ -86,7 +86,9 @@ const MyRestaurant = () => {
               <Button
                 appearance="primary"
                 intent="primary"
-                onClick={() => history.push("/add-dish")}
+                onClick={() =>
+                  history.push(`/add-dish/${data.myRestaurant.restaurant?.id}`)
+                }
               >
                 Add Dish &rarr;
               </Button>
@@ -106,7 +108,9 @@ const MyRestaurant = () => {
             ) : (
               <p
                 className=" underline cursor-pointer text-gray-500 hover:text-primary transform-300"
-                onClick={() => history.push("/add-dish")}
+                onClick={() =>
+                  history.push(`/add-dish/${data.myRestaurant.restaurant?.id}`)
+                }
               >
                 Create your firsh dish &rarr;
               </p>
