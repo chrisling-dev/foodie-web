@@ -701,6 +701,11 @@ body {
   margin-bottom: 0.75rem;
 }
 
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .mt-20 {
   margin-top: 5rem;
 }
@@ -1147,6 +1152,11 @@ body {
 .px-9 {
   padding-left: 2.25rem;
   padding-right: 2.25rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .pt-8 {
