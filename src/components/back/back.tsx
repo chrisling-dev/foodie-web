@@ -1,12 +1,15 @@
 import { useHistory } from "react-router";
 
-const Back = () => {
+interface IProps {
+  path?: string;
+}
+const Back: React.FC<IProps> = ({ path }) => {
   const history = useHistory();
 
   return (
     <p
       className=" w-max text-xs mb-2 cursor-pointer text-gray-400 hover:text-gray-600"
-      onClick={history.goBack}
+      onClick={path ? () => history.replace(path) : history.goBack}
     >
       &larr; Back
     </p>

@@ -24,6 +24,10 @@ export interface CreateRestaurantInput {
   backgroundImage?: string | null;
 }
 
+export interface MyRestaurantInput {
+  id: number;
+}
+
 export interface SignInInput {
   email: string;
   password: string;
