@@ -36,8 +36,11 @@
 
 - [x] Restaurant dashboard
 - [x] Create restaurant
+- [ ] Update Restaurant
+- [ ] Delete Restaurant
 - [x] Add meal
-- [ ] Edit meal
+- [x] Edit meal
+- [x] Delete meal
 - [ ] My orders (Filter by status)
 - [ ] Order details
 

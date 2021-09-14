@@ -56,11 +56,15 @@ const DeleteDish: React.FC<IProps> = ({ dish }) => {
           variables,
         });
         if (currentData) {
-          const dishes = currentData.myRestaurant.restaurant?.dishes;
+          let dishes = currentData.myRestaurant.restaurant?.dishes;
           if (dishes && dishes.length > 0) {
             for (let i = 0; i < dishes.length; i++) {
               const curDish = dishes[i];
               if (curDish.id === dish.id) {
+                if (i === 0) {
+                  dishes = [];
+                  break;
+                }
                 dishes.splice(i, 1);
                 break;
               }
@@ -128,7 +132,7 @@ const DeleteDish: React.FC<IProps> = ({ dish }) => {
           >
             Confirm Delete
           </Button>
-          <Button>Cancel</Button>
+          <Button onClick={setShowModal.bind(this, false)}>Cancel</Button>
         </div>
       </Modal>
     </div>
