@@ -32,6 +32,10 @@ export interface CreateRestaurantInput {
   backgroundImage?: string | null;
 }
 
+export interface DeleteDishInput {
+  id: number;
+}
+
 export interface GetDishByIdInput {
   id: number;
 }

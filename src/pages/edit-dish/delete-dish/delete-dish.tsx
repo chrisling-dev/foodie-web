@@ -1,15 +1,101 @@
+import { gql, useApolloClient, useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import Button from "../../../components/button/button";
+import ErrorMessage from "../../../components/error-message/error-message";
 import Modal from "../../../components/modal/modal";
+import {
+  deleteDish,
+  deleteDishVariables,
+} from "../../../__generated__/deleteDish";
 import { getDishById_getDishById_dish } from "../../../__generated__/getDishById";
+import { myRestaurant } from "../../../__generated__/myRestaurant";
+import { MY_RESTAURANT_QUERY } from "../../my-restaurant/my-restaurant";
 
+const DELETE_DISH_MUTATION = gql`
+  mutation deleteDish($input: DeleteDishInput!) {
+    deleteDish(input: $input) {
+      ok
+      error {
+        code
+        message
+      }
+      dish {
+        id
+        name
+        restaurant {
+          id
+        }
+      }
+    }
+  }
+`;
 interface IProps {
   dish: getDishById_getDishById_dish;
 }
 const DeleteDish: React.FC<IProps> = ({ dish }) => {
-  console.log(dish);
+  const history = useHistory();
   const [showModal, setShowModal] = useState(false);
+
+  const apolloClient = useApolloClient();
+  const [deleteDishMutation, { data, loading }] = useMutation<
+    deleteDish,
+    deleteDishVariables
+  >(DELETE_DISH_MUTATION, {
+    onCompleted({ deleteDish: { dish } }) {
+      if (dish) {
+        const variables = {
+          input: {
+            id: dish.restaurant.id,
+          },
+        };
+        const currentData = apolloClient.readQuery<myRestaurant>({
+          query: MY_RESTAURANT_QUERY,
+          variables,
+        });
+        if (currentData) {
+          const dishes = currentData.myRestaurant.restaurant?.dishes;
+          if (dishes && dishes.length > 0) {
+            for (let i = 0; i < dishes.length; i++) {
+              const curDish = dishes[i];
+              if (curDish.id === dish.id) {
+                dishes.splice(i, 1);
+                break;
+              }
+            }
+            apolloClient.writeQuery({
+              query: MY_RESTAURANT_QUERY,
+              variables,
+              data: {
+                ...currentData,
+                myRestaurant: {
+                  ...currentData.myRestaurant,
+                  restaurant: {
+                    ...currentData.myRestaurant.restaurant,
+                    dishes,
+                  },
+                },
+              },
+            });
+          }
+        }
+        toast.success(`${dish.name} has been removed!`);
+        history.goBack();
+      }
+    },
+  });
+
+  const onDelete = () => {
+    deleteDishMutation({
+      variables: {
+        input: {
+          id: dish.id,
+        },
+      },
+    });
+  };
   return (
     <div>
       <div
@@ -26,8 +112,20 @@ const DeleteDish: React.FC<IProps> = ({ dish }) => {
           Are you sure you want to delete{" "}
           <span className=" italic font-semibold">{dish.name}</span>?
         </p>
+        {data?.deleteDish.error && (
+          <ErrorMessage className=" mt-3">
+            {data.deleteDish.error.message}
+          </ErrorMessage>
+        )}
         <div className=" flex flex-col w-full mt-4 pt-4 border-solid border-t border-gray-200">
-          <Button className=" mb-3" appearance={"primary"} intent={"danger"}>
+          <Button
+            className=" mb-3"
+            appearance={"primary"}
+            intent={"danger"}
+            loading={loading}
+            loadingLabel="Deleting"
+            onClick={onDelete}
+          >
             Confirm Delete
           </Button>
           <Button>Cancel</Button>
