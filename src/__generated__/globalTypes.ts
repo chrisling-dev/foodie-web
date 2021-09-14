@@ -45,6 +45,14 @@ export interface SignInInput {
   password: string;
 }
 
+export interface UpdateDishInput {
+  id?: number | null;
+  name?: string | null;
+  description?: string | null;
+  price?: number | null;
+  photo?: string | null;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

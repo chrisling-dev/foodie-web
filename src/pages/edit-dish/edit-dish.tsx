@@ -9,6 +9,7 @@ import {
   getDishById,
   getDishByIdVariables,
 } from "../../__generated__/getDishById";
+import DeleteDish from "./delete-dish/delete-dish";
 import EditDishForm from "./edit-dish-form/edit-dish-form";
 
 const GET_DISH_QUERY = gql`
@@ -47,7 +48,12 @@ const EditDish = () => {
   return (
     <PageContainer>
       <div className=" w-full max-w-md mx-auto">
-        <Back />
+        <div className=" w-full flex justify-between items-center">
+          <Back />
+          {!loading && data?.getDishById.dish && (
+            <DeleteDish dish={data.getDishById.dish} />
+          )}
+        </div>
         {loading && (
           <div>
             <div className=" h-5 w-2/5 skeleton" />
