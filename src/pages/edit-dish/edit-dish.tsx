@@ -2,11 +2,17 @@ import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { useParams } from "react-router";
 import Back from "../../components/back/back";
+import ErrorMessage from "../../components/error-message/error-message";
 import InputSkeleton from "../../components/input/input-skeleton";
 import PageContainer from "../../components/page-container/page-container";
+import {
+  getDishById,
+  getDishByIdVariables,
+} from "../../__generated__/getDishById";
+import EditDishForm from "./edit-dish-form/edit-dish-form";
 
 const GET_DISH_QUERY = gql`
-  query getDish($input: GetDishByIdInput!) {
+  query getDishById($input: GetDishByIdInput!) {
     getDishById(input: $input) {
       ok
       error {
@@ -26,7 +32,17 @@ const GET_DISH_QUERY = gql`
 const EditDish = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data, loading } = useQuery(GET_DISH_QUERY);
+  const { data, loading } = useQuery<getDishById, getDishByIdVariables>(
+    GET_DISH_QUERY,
+    {
+      variables: {
+        input: {
+          id: +id,
+        },
+      },
+      skip: !id || isNaN(+id),
+    }
+  );
 
   return (
     <PageContainer>
@@ -44,6 +60,12 @@ const EditDish = () => {
             </div>
             <div className=" h-8 w-full mt-12 skeleton" />
           </div>
+        )}
+        {!loading && data?.getDishById.error && (
+          <ErrorMessage>{data.getDishById.error.message}</ErrorMessage>
+        )}
+        {!loading && data?.getDishById.dish && (
+          <EditDishForm dish={data.getDishById.dish} />
         )}
       </div>
     </PageContainer>

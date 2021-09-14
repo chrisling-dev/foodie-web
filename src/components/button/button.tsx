@@ -18,6 +18,7 @@ interface IProps extends React.HTMLProps<HTMLButtonElement> {
   fontSize?: "sm" | "md" | "lg";
   loading?: boolean;
   loadingLabel?: string;
+  type?: "button" | "submit" | "reset";
 }
 const Button: React.FC<IProps> = ({
   appearance = "default",
@@ -30,6 +31,7 @@ const Button: React.FC<IProps> = ({
   loading,
   loadingLabel,
   tabIndex,
+  type,
   onClick,
   onKeyDown,
 }) => {
@@ -86,6 +88,7 @@ const Button: React.FC<IProps> = ({
       onClick={disabled ? () => {} : onClick}
       onKeyDown={onKeyDown}
       tabIndex={tabIndex}
+      type={type}
     >
       {loading ? loadingLabel || "Loading" : children}
     </button>

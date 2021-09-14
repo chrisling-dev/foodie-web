@@ -12,13 +12,16 @@ import { useParams } from "react-router-dom";
 import Back from "../../components/back/back";
 import Button from "../../components/button/button";
 import ErrorMessage from "../../components/error-message/error-message";
-import ImagePicker from "../../components/image-picker/image-picker";
+import ImagePicker, {
+  ImagePickerRefType,
+} from "../../components/image-picker/image-picker";
 import Input from "../../components/input/input";
 import PageContainer from "../../components/page-container/page-container";
 import { UPLOAD_FAILED_MESSAGE } from "../../utils/constants";
 import { addDish, addDishVariables } from "../../__generated__/addDish";
 import { MY_RESTAURANT_QUERY } from "../my-restaurant/my-restaurant";
 import { toast } from "react-toastify";
+import { useRef } from "react";
 
 const ADD_DISH_MUTATION = gql`
   mutation addDish($input: AddDishInput!) {
@@ -86,6 +89,7 @@ const AddDish = () => {
           toast.success(`${dish.name} has been added to your menu!`, {
             position: "top-right",
           });
+          imagePickerRef.current?.changeFile();
           reset();
         } else if (error) {
           setError(error.message);
@@ -93,6 +97,8 @@ const AddDish = () => {
       },
     }
   );
+
+  const imagePickerRef = useRef<ImagePickerRefType>(null);
 
   const [error, setError] = useState<string | undefined>();
   const [photo, setPhoto] = useState<File | undefined>();
@@ -184,6 +190,7 @@ const AddDish = () => {
             containerClassName=" mb-6"
             label="Upload a photo"
             onSelectFile={(file) => setPhoto(file)}
+            ref={imagePickerRef}
           />
           <Button
             className=" w-full"

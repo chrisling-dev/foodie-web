@@ -32,6 +32,7 @@ const Input: React.FC<IProps> = ({
   ref,
   register,
   suffix,
+  step,
   type,
   value,
 }) => {
@@ -44,8 +45,9 @@ const Input: React.FC<IProps> = ({
       >
         <div>{prefix}</div>
         <input
-          className={`focus:outline-none text-gray-700 bg-transparent w-full caret-gray-400 ${inputClassName}`}
+          className={`focus:outline-none text-gray-700 bg-transparent w-full caret-gray-400 truncate ${inputClassName}`}
           placeholder={placeholder}
+          step={step}
           type={
             type === "password" ? (showPassword ? "text" : "password") : type
           }
