@@ -13,6 +13,9 @@
   @apply font-semibold text-xl text-gray-700 mb-4;
 }
 
+.skeleton {
+  @apply bg-gray-300 animate-pulse;
+}
 .transform-300 {
   @apply duration-300;
 }

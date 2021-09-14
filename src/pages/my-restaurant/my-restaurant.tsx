@@ -55,9 +55,7 @@ const MyRestaurant = () => {
 
   return (
     <div>
-      {loading && (
-        <div className=" w-full h-40 md:h-60 lg:h-80 bg-gray-300 animate-pulse" />
-      )}
+      {loading && <div className=" w-full h-40 md:h-60 lg:h-80 skeleton" />}
       {!loading && data?.myRestaurant.restaurant && (
         <img
           className="w-full h-40 md:h-60 lg:h-80 object-cover"
@@ -69,9 +67,9 @@ const MyRestaurant = () => {
         <Back path="/" />
         {loading && (
           <div className=" w-full">
-            <div className=" w-1/4 h-5 bg-gray-300 animate-pulse rounded-md" />
-            <div className=" w-full h-5 bg-gray-300 animate-pulse rounded-md mt-4" />
-            <div className=" w-3/5 h-5 bg-gray-300 animate-pulse rounded-md mt-2" />
+            <div className=" w-1/4 h-5 skeleton rounded-md" />
+            <div className=" w-full h-5 skeleton rounded-md mt-4" />
+            <div className=" w-3/5 h-5 skeleton rounded-md mt-2" />
           </div>
         )}
         {!loading && data?.myRestaurant.restaurant && (

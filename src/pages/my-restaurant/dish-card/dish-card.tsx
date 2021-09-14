@@ -1,12 +1,17 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { myRestaurant_myRestaurant_restaurant_dishes } from "../../../__generated__/myRestaurant";
 
 interface IProps {
   dish: myRestaurant_myRestaurant_restaurant_dishes;
 }
 const DishCard: React.FC<IProps> = ({ dish }) => {
+  const history = useHistory();
   return (
-    <div className=" w-full rounded-lg shadow-md overflow-hidden border border-solid border-gray-100 flex items-center hover:shadow-lg transform-300 cursor-pointer">
+    <div
+      className=" w-full rounded-lg shadow-md overflow-hidden border border-solid border-gray-100 flex items-center hover:shadow-lg transform-300 cursor-pointer"
+      onClick={() => history.push(`/edit-dish/${dish.id}`)}
+    >
       {dish.photo ? (
         <img
           className=" w-32 h-32 object-cover"
