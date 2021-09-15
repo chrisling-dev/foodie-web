@@ -20,7 +20,7 @@ const headerContext = createContext<HeaderContextProps>({
 export const HeaderProvider: React.FC = ({ children }) => {
   const [isHeaderShown, setIsHeaderShown] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const debouncedSearchQuery = useDebounce(searchQuery, 500);
+  const debouncedSearchQuery = useDebounce(searchQuery, 800);
 
   const hideHeader = () => {
     setIsHeaderShown(false);

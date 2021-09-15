@@ -20,6 +20,12 @@ export interface AddDishInput {
   restaurantId: number;
 }
 
+export interface BrowseRestaurantsInput {
+  query?: string | null;
+  offset?: number | null;
+  limit?: number | null;
+}
+
 export interface CreateAccountInput {
   email: string;
   password: string;
