@@ -34,7 +34,7 @@ const ResponsiveMenu: React.FC<IProps> = ({
         <Button
           key={name}
           appearance={focus ? "primary" : "minimal"}
-          className={" mt-3 md:mt-0 md:ml-3"}
+          className={" mt-3 lg:mt-0 lg:ml-3"}
           onClick={onClick.bind(this, path)}
           intent={"primary"}
         >

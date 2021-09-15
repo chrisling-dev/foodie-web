@@ -27,22 +27,23 @@
 - [x] Create Account
 - [x] Profile (Can permanently switch to Restaurant Role from Profile)
 - [ ] Explore (Browse list of restaurants and their food)
-- [ ] Restaurants' meals (When user clicks into a restaurant, they can see all food offered by the restaurant)
+- [ ] Restaurants (When user clicks into a restaurant, they can see all food offered by the restaurant)
 - [ ] Cart (If user tries to add food from a different restaurant to cart, show a prompt that asks if user is ok if we clear his current cart)
 - [ ] Order History Page
-- [ ] Saved Restaurants
+- [ ] Order details page
 
 ## Restaurant Owners flows
 
 - [x] Restaurant dashboard
 - [x] Create restaurant
-- [ ] Update Restaurant
-- [ ] Delete Restaurant
+- [x] Update Restaurant
+- [x] Delete Restaurant
 - [x] Add meal
 - [x] Edit meal
 - [x] Delete meal
 - [ ] My orders (Filter by status)
-- [ ] Order details
+- [ ] Order details: Can also block user from this page
+- [ ] Blocked Users: Can unblock user
 
 # Project Structure
 

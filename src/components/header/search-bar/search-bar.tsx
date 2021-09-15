@@ -1,15 +1,21 @@
 import React from "react";
 import { IoMdSearch } from "react-icons/io";
 import { useHistory } from "react-router-dom";
+import useHeader from "../../../hooks/useHeader";
 
 interface IProps {
   hideMenu: () => any;
 }
 const SearchBar: React.FC<IProps> = ({ hideMenu }) => {
+  const { searchQuery, search } = useHeader();
   const history = useHistory();
   const onFocus = () => {
     hideMenu();
+  };
+
+  const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     history.push("/");
+    if (search) search(e.target.value);
   };
   return (
     <div className=" px-6 md:px-8 w-full max-w-md">
@@ -21,6 +27,8 @@ const SearchBar: React.FC<IProps> = ({ hideMenu }) => {
           className="focus:outline-none bg-gray-200 w-full text-sm caret-gray-400 placeholder-gray-400 overflow-ellipsis"
           placeholder="Search meal, restaurant..."
           onFocus={onFocus}
+          onChange={onSearch}
+          value={searchQuery}
         />
       </div>
     </div>
