@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { createContext } from "react";
 import Header from "../components/header/header";
+import useDebounce from "../hooks/useDebounce";
 
 interface HeaderContextProps {
+  debouncedSearchQuery?: string;
   isHeaderShown: boolean;
   searchQuery?: string;
   hideHeader: () => void;
@@ -18,6 +20,7 @@ const headerContext = createContext<HeaderContextProps>({
 export const HeaderProvider: React.FC = ({ children }) => {
   const [isHeaderShown, setIsHeaderShown] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
   const hideHeader = () => {
     setIsHeaderShown(false);
@@ -34,6 +37,7 @@ export const HeaderProvider: React.FC = ({ children }) => {
   return (
     <headerContext.Provider
       value={{
+        debouncedSearchQuery,
         isHeaderShown,
         searchQuery,
         hideHeader,
