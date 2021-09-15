@@ -36,6 +36,10 @@ export interface DeleteDishInput {
   id: number;
 }
 
+export interface DeleteRestaurantInput {
+  id: number;
+}
+
 export interface GetDishByIdInput {
   id: number;
 }
@@ -55,6 +59,13 @@ export interface UpdateDishInput {
   description?: string | null;
   price?: number | null;
   photo?: string | null;
+}
+
+export interface UpdateRestaurantInput {
+  name?: string | null;
+  description?: string | null;
+  backgroundImage?: string | null;
+  id: number;
 }
 
 //==============================================================

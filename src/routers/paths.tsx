@@ -4,6 +4,7 @@ import CreateAccount from "../pages/create-account/create-account";
 import CreateRestaurant from "../pages/create-restaurant/create-restaurant";
 import Dashboard from "../pages/dashboard/dashboard";
 import EditDish from "../pages/edit-dish/edit-dish";
+import EditRestaurant from "../pages/edit-restaurant/edit-restaurant";
 import Explore from "../pages/explore/explore";
 import MyOrders from "../pages/my-orders/my-orders";
 import MyProfile from "../pages/my-profile/my-profile";
@@ -43,6 +44,10 @@ export const restaurantOwnersRoutes = [
   {
     component: EditDish,
     path: "/edit-dish/:id",
+  },
+  {
+    component: EditRestaurant,
+    path: "/edit-restaurant/:id",
   },
   {
     component: MyProfile,

@@ -1,6 +1,7 @@
-import { gql, useQuery } from "@apollo/client";
 import React from "react";
+import { gql, useQuery } from "@apollo/client";
 import { useHistory, useParams } from "react-router-dom";
+import { FiEdit } from "react-icons/fi";
 import Back from "../../components/back/back";
 import PageContainer from "../../components/page-container/page-container";
 import {
@@ -64,7 +65,19 @@ const MyRestaurant = () => {
         />
       )}
       <PageContainer>
-        <Back path="/" />
+        <div className=" flex items-center justify-between">
+          <Back path="/" />
+          {!loading && data?.myRestaurant.restaurant && (
+            <div>
+              <div
+                className=" cursor-pointer text-gray-500 hover:text-gray-700 transform-300"
+                onClick={() => history.push(`/edit-restaurant/${id}`)}
+              >
+                <FiEdit />
+              </div>
+            </div>
+          )}
+        </div>
         {loading && (
           <div className=" w-full">
             <div className=" w-1/4 h-5 skeleton rounded-md" />

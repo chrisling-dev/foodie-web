@@ -55,16 +55,12 @@ const DeleteDish: React.FC<IProps> = ({ dish }) => {
           query: MY_RESTAURANT_QUERY,
           variables,
         });
-        if (currentData) {
-          let dishes = currentData.myRestaurant.restaurant?.dishes;
+        if (currentData && currentData.myRestaurant.restaurant?.dishes) {
+          let dishes = [...currentData.myRestaurant.restaurant?.dishes];
           if (dishes && dishes.length > 0) {
             for (let i = 0; i < dishes.length; i++) {
               const curDish = dishes[i];
               if (curDish.id === dish.id) {
-                if (i === 0) {
-                  dishes = [];
-                  break;
-                }
                 dishes.splice(i, 1);
                 break;
               }
@@ -113,7 +109,7 @@ const DeleteDish: React.FC<IProps> = ({ dish }) => {
       </div>
       <Modal title={`Delete ${dish.name}?`} showModal={showModal}>
         <p className=" text-gray-500 text-sm mt-2">
-          Are you sure you want to delete{" "}
+          This action is not reversible! Are you sure you want to delete{" "}
           <span className=" italic font-semibold">{dish.name}</span>?
         </p>
         {data?.deleteDish.error && (
@@ -126,6 +122,7 @@ const DeleteDish: React.FC<IProps> = ({ dish }) => {
             className=" mb-3"
             appearance={"primary"}
             intent={"danger"}
+            disabled={loading}
             loading={loading}
             loadingLabel="Deleting"
             onClick={onDelete}
