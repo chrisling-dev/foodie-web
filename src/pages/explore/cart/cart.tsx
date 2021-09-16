@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Button from "../../../components/button/button";
 import useCart from "../../../hooks/useCart";
+import CartItem from "./cart-item/cart-item";
 
 interface IProps {
   className?: string;
@@ -26,14 +27,28 @@ const Cart: React.FC<IProps> = ({ className }) => {
         >
           <div className=" w-full h-full flex flex-col justify-between">
             <div className=" flex flex-1 flex-col overflow-hidden">
-              <p className=" font-semibold text-gray-700 text-lg p-2 lg:p-3 border-b border-solid border-gray-100">
-                My Cart
-              </p>
+              <div>
+                <p className=" font-semibold text-gray-700 text-lg border-b border-solid border-gray-100 p-2 lg:p-3 lg:pb-1">
+                  My Cart
+                </p>
+                {cart?.restaurant && (
+                  <div className=" w-full p-2 shadow-md">
+                    <p className=" font-semibold text-gray-700 text-sm truncate">
+                      {cart.restaurant.name}
+                    </p>
+                    <p className=" text-gray-500 text-xs truncate italic">
+                      {cart.restaurant.description}
+                    </p>
+                  </div>
+                )}
+              </div>
               <div className=" h-full overflow-y-auto">
                 {!loading &&
                   cart?.cartItems &&
                   (cart.cartItems.length > 0 ? (
-                    cart.cartItems.map((item) => <p>{item.dish.name}</p>)
+                    cart.cartItems.map((item) => (
+                      <CartItem item={item} key={`${item.id}`} />
+                    ))
                   ) : (
                     <div className=" w-full h-full flex items-center justify-center p-4">
                       <p className=" text-gray-400 text-center">
