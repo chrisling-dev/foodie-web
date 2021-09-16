@@ -29,7 +29,10 @@ const RestaurantCard: React.FC<IProps> = ({ restaurant }) => {
       </div>
       <div className=" w-full pt-2 grid grid-cols-1 gap-2">
         {restaurant.dishes.slice(0, 3).map((dish) => (
-          <div className=" w-full px-3 border-solid border-t border-gray-100 pt-2 flex justify-between items-center">
+          <div
+            key={`${dish.id}`}
+            className=" w-full px-3 border-solid border-t border-gray-100 pt-2 flex justify-between items-center"
+          >
             <p className=" text-xs line-clamp-1 text-gray-500 ">{dish.name}</p>
             <p className=" text-xs mt-1 py-1 px-2 bg-primary rounded-md w-max text-white">
               ${dish.price}

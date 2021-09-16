@@ -1,5 +1,4 @@
 import AddDish from "../pages/add-dish/add-dish";
-import Cart from "../pages/cart/cart";
 import CreateAccount from "../pages/create-account/create-account";
 import CreateRestaurant from "../pages/create-restaurant/create-restaurant";
 import Dashboard from "../pages/dashboard/dashboard";
@@ -60,10 +59,6 @@ export const restaurantOwnersRoutes = [
 ];
 
 export const regularUsersRoutes = [
-  {
-    component: Cart,
-    path: "/cart",
-  },
   {
     component: MyOrders,
     path: "/my-orders",

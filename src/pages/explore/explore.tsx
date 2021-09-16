@@ -53,7 +53,6 @@ const Explore = () => {
     },
   });
 
-  console.log(meData?.me);
   return (
     <PageContainer>
       <p className=" page-title">Discover Delicious Meals</p>
@@ -63,28 +62,10 @@ const Explore = () => {
           <div className=" flex flex-col w-full h-full overflow-y-auto ">
             {data?.browseRestaurants.restaurants.length > 0 ? (
               data?.browseRestaurants.restaurants?.map((restaurant) => (
-                <RestaurantCard restaurant={restaurant} />
-              ))
-            ) : (
-              <p>Sorry, we couldn't find anything. Try a different keyword?</p>
-            )}
-            {data?.browseRestaurants.restaurants.length > 0 ? (
-              data?.browseRestaurants.restaurants?.map((restaurant) => (
-                <RestaurantCard restaurant={restaurant} />
-              ))
-            ) : (
-              <p>Sorry, we couldn't find anything. Try a different keyword?</p>
-            )}
-            {data?.browseRestaurants.restaurants.length > 0 ? (
-              data?.browseRestaurants.restaurants?.map((restaurant) => (
-                <RestaurantCard restaurant={restaurant} />
-              ))
-            ) : (
-              <p>Sorry, we couldn't find anything. Try a different keyword?</p>
-            )}
-            {data?.browseRestaurants.restaurants.length > 0 ? (
-              data?.browseRestaurants.restaurants?.map((restaurant) => (
-                <RestaurantCard restaurant={restaurant} />
+                <RestaurantCard
+                  key={`${restaurant.id}`}
+                  restaurant={restaurant}
+                />
               ))
             ) : (
               <p>Sorry, we couldn't find anything. Try a different keyword?</p>

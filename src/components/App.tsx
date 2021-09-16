@@ -1,6 +1,7 @@
 import { useReactiveVar } from "@apollo/client";
 import React from "react";
 import { isLoggedInVar } from "../apollo";
+import CartProvider from "../context/cart.context";
 import { HeaderProvider } from "../context/header.context";
 import SignedInRouter from "../routers/signed-in.router";
 import SignedOutRouter from "../routers/signed-out.router";
@@ -10,7 +11,9 @@ function App() {
   return (
     <div className="App">
       <HeaderProvider>
-        {isLoggedIn ? <SignedInRouter /> : <SignedOutRouter />}
+        <CartProvider>
+          {isLoggedIn ? <SignedInRouter /> : <SignedOutRouter />}
+        </CartProvider>
       </HeaderProvider>
     </div>
   );

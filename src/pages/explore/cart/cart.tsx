@@ -1,12 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import Button from "../../../components/button/button";
+import useCart from "../../../hooks/useCart";
 
 interface IProps {
   className?: string;
 }
 const Cart: React.FC<IProps> = ({ className }) => {
   const [showCart, setShowCart] = useState(false);
+  const { cart, loading, error } = useCart();
   return (
     <div
       className={`
@@ -28,18 +30,24 @@ const Cart: React.FC<IProps> = ({ className }) => {
                 My Cart
               </p>
               <div className=" h-full overflow-y-auto">
-                <div className=" w-full h-full flex items-center justify-center p-4">
-                  <p className=" text-gray-400 text-center">
-                    You don't have anything in cart yet!
-                  </p>
-                </div>
+                {!loading &&
+                  cart?.cartItems &&
+                  (cart.cartItems.length > 0 ? (
+                    cart.cartItems.map((item) => <p>{item.dish.name}</p>)
+                  ) : (
+                    <div className=" w-full h-full flex items-center justify-center p-4">
+                      <p className=" text-gray-400 text-center">
+                        You don't have anything in cart yet!
+                      </p>
+                    </div>
+                  ))}
               </div>
             </div>
             <div className=" w-full flex items-center justify-between p-2 lg:p-3 border-t border-solid border-gray-100">
               <div>
                 <p className=" text-gray-500">Total Amount</p>
                 <p className=" font-semibold text-gray-600">
-                  ${(0.0).toFixed(2)}
+                  ${(cart?.totalPrice || 0.0).toFixed(2)}
                 </p>
               </div>
               <Button intent={"primary"} appearance={"primary"}>
