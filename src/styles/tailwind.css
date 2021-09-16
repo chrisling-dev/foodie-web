@@ -34,5 +34,13 @@
       padding-left: 10%;
       padding-right: 10%;
     }
+
+    .screen-height {
+      max-height: calc(100vh - 64px);
+    }
+
+    .h-70vh {
+      height: 70vh;
+    }
   }
 }

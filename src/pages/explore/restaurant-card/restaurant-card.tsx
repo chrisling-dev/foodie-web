@@ -1,12 +1,17 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import coverPhoto from "../../../assets/cover-photo.png";
 import { browseRestaurants_browseRestaurants_restaurants } from "../../../__generated__/browseRestaurants";
 interface IProps {
   restaurant: browseRestaurants_browseRestaurants_restaurants;
 }
 const RestaurantCard: React.FC<IProps> = ({ restaurant }) => {
+  const history = useHistory();
   return (
-    <div className=" w-full shadow-md border border-solid border-gray-100 rounded-lg mb-3 p-3 cursor-pointer hover:shadow-lg transform-300">
+    <div
+      className=" w-full shadow-md border border-solid border-gray-100 rounded-lg mb-3 p-3 cursor-pointer hover:shadow-lg transform-300"
+      onClick={() => history.push(`/restaurant/${restaurant.id}`)}
+    >
       <div className=" flex items-center w-full">
         <img
           alt={restaurant.name}
@@ -24,9 +29,11 @@ const RestaurantCard: React.FC<IProps> = ({ restaurant }) => {
       </div>
       <div className=" w-full pt-2 grid grid-cols-1 gap-2">
         {restaurant.dishes.slice(0, 3).map((dish) => (
-          <div className=" w-full px-3 border-solid border-t border-gray-100 pt-2">
+          <div className=" w-full px-3 border-solid border-t border-gray-100 pt-2 flex justify-between items-center">
             <p className=" text-xs line-clamp-1 text-gray-500 ">{dish.name}</p>
-            <p className=" text-xs mt-1 font-semibold">${dish.price}</p>
+            <p className=" text-xs mt-1 py-1 px-2 bg-primary rounded-md w-max text-white">
+              ${dish.price}
+            </p>
           </div>
         ))}
       </div>

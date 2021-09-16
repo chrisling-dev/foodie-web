@@ -72,7 +72,10 @@ const CreateAccount = () => {
   };
   return (
     <div className=" min-w-screen min-h-screen bg-blue-50 flex flex-col items-center">
-      <div className="mb-20 w-full bg-primary p-4 flex items-center justify-center">
+      <div
+        className="mb-20 w-full bg-primary p-4 flex items-center justify-center"
+        onClick={() => history.push("/")}
+      >
         <Logo color="white" />
       </div>
       <div className=" w-full p-4 flex items-center justify-center">

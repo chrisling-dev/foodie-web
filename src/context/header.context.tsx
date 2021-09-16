@@ -46,7 +46,10 @@ export const HeaderProvider: React.FC = ({ children }) => {
       }}
     >
       <Header />
-      {children}
+      <div className=" w-full screen-height overflow-y-auto">
+        {children}
+        <div className=" h-40 w-full bg-white pointer-events-none" />
+      </div>
     </headerContext.Provider>
   );
 };

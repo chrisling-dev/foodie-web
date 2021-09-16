@@ -20,7 +20,7 @@ export const publicRoutes = (role?: UserRole) => [
     path: "/",
   },
   {
-    component: Restaurant,
+    component: role === UserRole.RestaurantOwner ? MyRestaurant : Restaurant,
     path: "/restaurant/:restaurantId",
   },
   {

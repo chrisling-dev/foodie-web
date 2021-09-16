@@ -5,7 +5,7 @@ interface IProps {
 }
 const PageContainer: React.FC<IProps> = ({ children, className }) => {
   return (
-    <div className={` w-full px-4 md:px-10pc pt-8 pb-16 ${className}`}>
+    <div className={` w-full px-4 md:px-10pc pt-8 ${className}`}>
       {children}
     </div>
   );
