@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Back from "../../../../components/back/back";
 import Button from "../../../../components/button/button";
+import Checkbox from "../../../../components/checkbox/checkbox";
 import Modal from "../../../../components/modal/modal";
 import useCart from "../../../../hooks/useCart";
 import {
@@ -14,11 +15,16 @@ interface IProps {
   restaurant: browseRestaurants_browseRestaurants_restaurants;
 }
 const DishCard: React.FC<IProps> = ({ dish, restaurant }) => {
-  const { cart } = useCart();
+  const { cart, changeCart } = useCart();
   const [showDish, setShowDish] = useState(false);
+  const [removeConsent, setRemoveConsent] = useState(false);
 
+  const onAddToCart = () => {
+    changeCart({ add: true, dishId: dish.id, quantity: 1 });
+    setShowDish(false);
+  };
   const restaurantConflict =
-    cart?.restaurant && cart.restaurant.id !== restaurant.id;
+    !!cart?.restaurant && cart.restaurant.id !== restaurant.id;
   return (
     <React.Fragment>
       <div
@@ -66,13 +72,24 @@ const DishCard: React.FC<IProps> = ({ dish, restaurant }) => {
             <p>Price</p>
             <p>${dish.price}</p>
           </div>
-          <Button className=" w-full" appearance={"primary"} intent={"primary"}>
+          <Button
+            className=" w-full"
+            appearance={"primary"}
+            intent={"primary"}
+            disabled={restaurantConflict && !removeConsent}
+            onClick={onAddToCart}
+          >
             Add to Cart
           </Button>
           {restaurantConflict && (
-            <div>
-              <p>You cannot add to cart</p>
-            </div>
+            <Checkbox
+              containerClassName={" mt-3"}
+              isChecked={removeConsent}
+              onCheck={() => setRemoveConsent(!removeConsent)}
+              message={
+                "You already have food from other restaurant in your cart! Adding this dish will remove all items in your current cart."
+              }
+            />
           )}
         </div>
       </Modal>

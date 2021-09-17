@@ -23,6 +23,7 @@ export interface AddDishInput {
 export interface AddToCartInput {
   dishId: number;
   quantity: number;
+  add?: boolean | null;
 }
 
 export interface BrowseRestaurantsInput {

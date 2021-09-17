@@ -25,7 +25,7 @@ const CartItem: React.FC<IProps> = ({ item }) => {
   };
 
   const onSave = () => {
-    changeCart({ id: item.dish.id, quantity });
+    changeCart({ dishId: item.dish.id, quantity });
     setEditing(false);
   };
 

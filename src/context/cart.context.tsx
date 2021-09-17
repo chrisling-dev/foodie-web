@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { addToCart, addToCartVariables } from "../__generated__/addToCart";
 import { myCart, myCart_myCart_cart } from "../__generated__/myCart";
 import { isLoggedInVar } from "../apollo";
+import { AddToCartInput } from "../__generated__/globalTypes";
 
 const MY_CART_QUERY = gql`
   query myCart {
@@ -66,10 +67,6 @@ const ADD_TO_CART_MUTATION = gql`
     }
   }
 `;
-interface CartInput {
-  quantity: number;
-  id: number;
-}
 
 interface ErrorProps {
   code: string;
@@ -81,7 +78,7 @@ interface IProps {
   cart?: myCart_myCart_cart;
   error?: ErrorProps | null;
   loading: boolean;
-  changeCart: (cartInput: CartInput) => void;
+  changeCart: (cartInput: AddToCartInput) => void;
 }
 export const cartContext = createContext<IProps>({
   addingToCart: false,
@@ -112,11 +109,12 @@ const CartProvider: React.FC = ({ children }) => {
       },
     });
 
-  const changeCart = ({ id, quantity }: CartInput) => {
+  const changeCart = ({ add, dishId, quantity }: AddToCartInput) => {
     addToCartMutation({
       variables: {
         input: {
-          dishId: id,
+          add,
+          dishId,
           quantity,
         },
       },

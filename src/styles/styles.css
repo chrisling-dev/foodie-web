@@ -898,6 +898,10 @@ body {
   height: 20rem;
 }
 
+.h-2 {
+  height: 0.5rem;
+}
+
 .max-h-28 {
   max-height: 7rem;
 }
@@ -977,6 +981,10 @@ body {
 
 .w-24 {
   width: 6rem;
+}
+
+.w-2 {
+  width: 0.5rem;
 }
 
 .min-w-max {
@@ -1114,6 +1122,10 @@ body {
 
 .rounded-2xl {
   border-radius: 1rem;
+}
+
+.rounded-sm {
+  border-radius: 0.125rem;
 }
 
 .rounded-t-lg {
@@ -1267,6 +1279,10 @@ body {
 
 .bg-opacity-0 {
   --tw-bg-opacity: 0;
+}
+
+.bg-opacity-100 {
+  --tw-bg-opacity: 1;
 }
 
 .object-cover {
