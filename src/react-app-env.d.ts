@@ -3,6 +3,6 @@
 declare namespace NodeJS {
   interface ProcessEnv {
     NODE_ENV: "development" | "production" | "test";
-    GRAPHQL_URL: string;
+    REACT_APP_GRAPHQL_URL: string;
   }
 }
