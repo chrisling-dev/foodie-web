@@ -20,6 +20,11 @@ export interface AddDishInput {
   restaurantId: number;
 }
 
+export interface AddToCartInput {
+  dishId: number;
+  quantity: number;
+}
+
 export interface BrowseRestaurantsInput {
   query?: string | null;
   offset?: number | null;

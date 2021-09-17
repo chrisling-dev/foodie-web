@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import Button from "../../../components/button/button";
+import ErrorMessage from "../../../components/error-message/error-message";
+import Loader from "../../../components/loader/loader";
 import useCart from "../../../hooks/useCart";
 import CartItem from "./cart-item/cart-item";
 
@@ -9,7 +11,7 @@ interface IProps {
 }
 const Cart: React.FC<IProps> = ({ className }) => {
   const [showCart, setShowCart] = useState(false);
-  const { cart, loading, error } = useCart();
+  const { addingToCart, cart, error, loading } = useCart();
   return (
     <div
       className={`
@@ -42,7 +44,12 @@ const Cart: React.FC<IProps> = ({ className }) => {
                   </div>
                 )}
               </div>
-              <div className=" h-full overflow-y-auto">
+              <div className=" h-full overflow-y-auto relative">
+                {addingToCart && (
+                  <div className=" w-full h-full bg-white bg-opacity-70 flex items-center justify-center absolute z-30">
+                    <Loader />
+                  </div>
+                )}
                 {!loading &&
                   cart?.cartItems &&
                   (cart.cartItems.length > 0 ? (
@@ -56,6 +63,11 @@ const Cart: React.FC<IProps> = ({ className }) => {
                       </p>
                     </div>
                   ))}
+                {error && (
+                  <div className="w-full flex items-center justify-center p-4">
+                    <ErrorMessage>{error?.message}</ErrorMessage>
+                  </div>
+                )}
               </div>
             </div>
             <div className=" w-full flex items-center justify-between p-2 lg:p-3 border-t border-solid border-gray-100">

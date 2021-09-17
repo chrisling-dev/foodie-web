@@ -12,7 +12,14 @@ const Loader = () => {
     },
   };
 
-  return <Lottie options={defaultOptions} height={45} width={45} />;
+  return (
+    <Lottie
+      options={defaultOptions}
+      height={45}
+      width={45}
+      isClickToPauseDisabled={true}
+    />
+  );
 };
 
 export default Loader;
