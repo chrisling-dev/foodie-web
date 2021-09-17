@@ -1,8 +1,9 @@
 import { createContext, useState } from "react";
-import { useMutation, useQuery, gql } from "@apollo/client";
+import { useMutation, useQuery, gql, useReactiveVar } from "@apollo/client";
 import { toast } from "react-toastify";
 import { addToCart, addToCartVariables } from "../__generated__/addToCart";
 import { myCart, myCart_myCart_cart } from "../__generated__/myCart";
+import { isLoggedInVar } from "../apollo";
 
 const MY_CART_QUERY = gql`
   query myCart {
@@ -89,6 +90,7 @@ export const cartContext = createContext<IProps>({
 });
 const CartProvider: React.FC = ({ children }) => {
   const [cart, setCart] = useState<myCart_myCart_cart>();
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
   const { data, loading } = useQuery<myCart>(MY_CART_QUERY, {
     onCompleted({ myCart }) {
       if (myCart.cart) {
@@ -98,6 +100,7 @@ const CartProvider: React.FC = ({ children }) => {
         toast.error(myCart.error.message);
       }
     },
+    skip: !isLoggedIn,
   });
 
   const [addToCartMutation, { data: addToCartData, loading: addingToCart }] =

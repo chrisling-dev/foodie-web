@@ -8,9 +8,9 @@ const useSignOut = () => {
   const apolloClient = useApolloClient();
 
   const signOut = () => {
-    authTokenVar(null);
-    apolloClient.resetStore();
     localStorage.removeItem(AUTH_TOKEN);
+    apolloClient.resetStore();
+    authTokenVar(null);
     history.push("/");
     isLoggedInVar(false);
   };

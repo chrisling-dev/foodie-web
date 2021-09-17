@@ -1,16 +1,17 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import coverPhoto from "../../../assets/cover-photo.png";
 import { browseRestaurants_browseRestaurants_restaurants } from "../../../__generated__/browseRestaurants";
 interface IProps {
   restaurant: browseRestaurants_browseRestaurants_restaurants;
+  onClick: (
+    restaurant: browseRestaurants_browseRestaurants_restaurants
+  ) => void;
 }
-const RestaurantCard: React.FC<IProps> = ({ restaurant }) => {
-  const history = useHistory();
+const RestaurantCard: React.FC<IProps> = ({ restaurant, onClick }) => {
   return (
     <div
       className=" w-full shadow-md border border-solid border-gray-100 rounded-lg mb-3 p-3 cursor-pointer hover:shadow-lg transform-300"
-      onClick={() => history.push(`/restaurant/${restaurant.id}`)}
+      onClick={onClick.bind(this, restaurant)}
     >
       <div className=" flex items-center w-full">
         <img

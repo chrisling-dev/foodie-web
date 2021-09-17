@@ -5,6 +5,7 @@ import {
   makeVar,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { onError } from "@apollo/client/link/error";
 import { AUTH_TOKEN } from "./utils/constants";
 
 const token = localStorage.getItem(AUTH_TOKEN);
@@ -22,8 +23,11 @@ const authLink = setContext((_, { headers }) => ({
   },
 }));
 
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  console.log(graphQLErrors, networkError);
+});
 const apolloClient = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(httpLink.concat(errorLink)),
   cache: new InMemoryCache(),
 });
 

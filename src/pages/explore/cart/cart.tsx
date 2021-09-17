@@ -3,6 +3,7 @@ import { useState } from "react";
 import Button from "../../../components/button/button";
 import ErrorMessage from "../../../components/error-message/error-message";
 import Loader from "../../../components/loader/loader";
+import useMe from "../../../hooks/queries/useMe";
 import useCart from "../../../hooks/useCart";
 import CartItem from "./cart-item/cart-item";
 
@@ -10,8 +11,11 @@ interface IProps {
   className?: string;
 }
 const Cart: React.FC<IProps> = ({ className }) => {
+  const { data } = useMe();
   const [showCart, setShowCart] = useState(false);
   const { addingToCart, cart, error, loading } = useCart();
+
+  if (!data?.me) return <React.Fragment />;
   return (
     <div
       className={`

@@ -1,6 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { useState } from "react";
+import Back from "../../components/back/back";
 import Loader from "../../components/loader/loader";
 import PageContainer from "../../components/page-container/page-container";
 import useMe from "../../hooks/queries/useMe";
@@ -8,9 +9,11 @@ import useHeader from "../../hooks/useHeader";
 import {
   browseRestaurants,
   browseRestaurantsVariables,
+  browseRestaurants_browseRestaurants_restaurants,
 } from "../../__generated__/browseRestaurants";
 import Cart from "./cart/cart";
 import RestaurantCard from "./restaurant-card/restaurant-card";
+import Restaurant from "./restaurant/restaurant";
 
 const BROWSE_RESTAURANTS_QUERY = gql`
   query browseRestaurants($input: BrowseRestaurantsInput!) {
@@ -39,6 +42,9 @@ const BROWSE_RESTAURANTS_QUERY = gql`
 const Explore = () => {
   const { data: meData } = useMe();
   const { debouncedSearchQuery } = useHeader();
+  const [browsingRestaurant, setBrowsingRestaurant] = useState<
+    browseRestaurants_browseRestaurants_restaurants | undefined
+  >();
   const [page, setPage] = useState(1);
   const { data, loading, error } = useQuery<
     browseRestaurants,
@@ -53,7 +59,18 @@ const Explore = () => {
     },
   });
 
-  return (
+  const onBrowseRestaurant = (
+    restaurant: browseRestaurants_browseRestaurants_restaurants
+  ) => {
+    setBrowsingRestaurant(restaurant);
+  };
+
+  return browsingRestaurant ? (
+    <Restaurant
+      restaurant={browsingRestaurant}
+      onBack={setBrowsingRestaurant.bind(this, undefined)}
+    />
+  ) : (
     <PageContainer>
       <p className=" page-title">Discover Delicious Meals</p>
       {loading && <Loader />}
@@ -64,6 +81,7 @@ const Explore = () => {
               data?.browseRestaurants.restaurants?.map((restaurant) => (
                 <RestaurantCard
                   key={`${restaurant.id}`}
+                  onClick={onBrowseRestaurant}
                   restaurant={restaurant}
                 />
               ))
@@ -71,7 +89,7 @@ const Explore = () => {
               <p>Sorry, we couldn't find anything. Try a different keyword?</p>
             )}
           </div>
-          {meData?.me && <Cart />}
+          <Cart />
         </div>
       )}
       {!loading && error && (

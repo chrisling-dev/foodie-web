@@ -2,30 +2,16 @@ import React from "react";
 
 interface IProps {
   customComponent?: any;
-  primaryLabel?: string;
-  primaryAction?: any;
-  primaryIntent?: "none" | "success" | "danger" | "primary";
-  primaryDisabled?: boolean;
-  secondaryLabel?: string;
-  secondaryAction?: any;
-  secondaryIntent?: "none" | "success" | "danger" | "primary";
-  secondaryDisabled?: boolean;
   showModal?: boolean;
   title?: string;
+  onClose?: () => void;
 }
 const Modal: React.FC<IProps> = ({
   children,
   customComponent,
-  primaryLabel,
-  primaryAction,
-  primaryIntent,
-  primaryDisabled,
-  secondaryLabel,
-  secondaryAction,
-  secondaryIntent,
-  secondaryDisabled,
   showModal,
   title,
+  onClose,
 }) => {
   return (
     <div
@@ -34,6 +20,7 @@ const Modal: React.FC<IProps> = ({
           ? " opacity-100 bg-opacity-70"
           : "opacity-0 pointer-events-none"
       }`}
+      onClick={onClose}
     >
       {customComponent ? (
         customComponent

@@ -2,10 +2,15 @@ import React from "react";
 
 interface IProps {
   className?: string;
+  override?: boolean;
 }
-const PageContainer: React.FC<IProps> = ({ children, className }) => {
+const PageContainer: React.FC<IProps> = ({ children, className, override }) => {
   return (
-    <div className={` w-full px-4 md:px-10pc pt-8 ${className}`}>
+    <div
+      className={
+        override ? className : ` w-full px-4 md:px-10pc pt-8 ${className}`
+      }
+    >
       {children}
     </div>
   );
