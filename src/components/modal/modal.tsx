@@ -22,7 +22,7 @@ const Modal: React.FC<IProps> = ({
       className={` fixed z-50 p-4 top-0 left-0 w-screen h-screen bg-gray-600 flex items-center justify-center transform-300 ${
         showModal
           ? " opacity-100 bg-opacity-70"
-          : "opacity-0 pointer-events-none"
+          : "opacity-0 bg-opacity-0 pointer-events-none"
       }`}
     >
       {customComponent ? (

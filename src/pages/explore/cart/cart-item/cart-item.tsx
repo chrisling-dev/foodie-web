@@ -73,7 +73,7 @@ const CartItem: React.FC<IProps> = ({ item }) => {
         </p>
       </div>
       <div
-        className={`fixed top-0 left-0 w-screen h-screen bg-gray-700 bg-opacity-70 z-40 
+        className={`fixed top-0 left-0 w-screen h-screen bg-gray-700 z-40 
         ${editing ? " bg-opacity-70" : " bg-opacity-0 pointer-events-none"}`}
         onClick={onCancelEdit}
       />
