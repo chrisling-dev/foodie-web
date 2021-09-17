@@ -1,7 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
 import Logo from "../../assets/logo";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
@@ -11,6 +10,7 @@ import { authTokenVar, isLoggedInVar } from "../../apollo";
 import { AUTH_TOKEN } from "../../utils/constants";
 import { signIn, signInVariables } from "../../__generated__/signIn";
 import Back from "../../components/back/back";
+import useNavigate from "../../hooks/useNavigate";
 
 const SIGN_IN_MUTATION = gql`
   mutation signIn($input: SignInInput!) {
@@ -31,7 +31,7 @@ interface SignInFormProps {
 }
 const SignIn = () => {
   useHideHeader();
-  const history = useHistory();
+  const { toCreateAccount, toHome } = useNavigate();
   const [signInMutation, { loading, data }] = useMutation<
     signIn,
     signInVariables
@@ -42,7 +42,7 @@ const SignIn = () => {
         localStorage.setItem(AUTH_TOKEN, accessToken);
         authTokenVar(accessToken);
         isLoggedInVar(true);
-        history.push("/");
+        toHome();
       }
     },
   });
@@ -50,8 +50,6 @@ const SignIn = () => {
   const { formState, getValues, register } = useForm<SignInFormProps>({
     mode: "onChange",
   });
-
-  const navigateToCreateAccount = () => history.push("/create-account");
 
   const onSignIn = (
     e: React.FormEvent<HTMLFormElement> | React.FormEvent<HTMLButtonElement>
@@ -70,7 +68,7 @@ const SignIn = () => {
     <div className=" min-w-screen min-h-screen bg-blue-50 flex flex-col items-center">
       <div
         className="mb-20 w-full bg-primary p-4 flex items-center justify-center"
-        onClick={() => history.push("/")}
+        onClick={toHome}
       >
         <Logo color="white" />
       </div>
@@ -120,10 +118,7 @@ const SignIn = () => {
 
           <p className=" text-center mt-8 text-sm text-gray-400">
             Don't have account yet?{" "}
-            <span
-              className=" text-primary cursor-pointer hover:opacity-80 transform-300"
-              onClick={navigateToCreateAccount}
-            >
+            <span className=" link" onClick={toCreateAccount}>
               Create account
             </span>
           </p>

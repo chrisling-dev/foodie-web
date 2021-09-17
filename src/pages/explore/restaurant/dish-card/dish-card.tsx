@@ -4,7 +4,9 @@ import Back from "../../../../components/back/back";
 import Button from "../../../../components/button/button";
 import Checkbox from "../../../../components/checkbox/checkbox";
 import Modal from "../../../../components/modal/modal";
+import useMe from "../../../../hooks/queries/useMe";
 import useCart from "../../../../hooks/useCart";
+import useNavigate from "../../../../hooks/useNavigate";
 import {
   browseRestaurants_browseRestaurants_restaurants,
   browseRestaurants_browseRestaurants_restaurants_dishes,
@@ -15,7 +17,9 @@ interface IProps {
   restaurant: browseRestaurants_browseRestaurants_restaurants;
 }
 const DishCard: React.FC<IProps> = ({ dish, restaurant }) => {
+  const { toSignIn, toCreateAccount } = useNavigate();
   const { cart, changeCart } = useCart();
+  const { data } = useMe();
   const [showDish, setShowDish] = useState(false);
   const [removeConsent, setRemoveConsent] = useState(false);
 
@@ -72,15 +76,34 @@ const DishCard: React.FC<IProps> = ({ dish, restaurant }) => {
             <p>Price</p>
             <p>${dish.price}</p>
           </div>
-          <Button
-            className=" w-full"
-            appearance={"primary"}
-            intent={"primary"}
-            disabled={restaurantConflict && !removeConsent}
-            onClick={onAddToCart}
-          >
-            Add to Cart
-          </Button>
+          {data?.me ? (
+            <Button
+              className=" w-full"
+              appearance={"primary"}
+              intent={"primary"}
+              disabled={restaurantConflict && !removeConsent}
+              onClick={onAddToCart}
+            >
+              Add to Cart
+            </Button>
+          ) : (
+            <div className=" w-full">
+              <Button
+                className=" w-full"
+                appearance="primary"
+                intent="primary"
+                onClick={toSignIn}
+              >
+                Sign In to Continue
+              </Button>
+              <p className=" text-center mt-4 text-sm text-gray-400">
+                Don't have account yet?{" "}
+                <span className=" link" onClick={toCreateAccount}>
+                  Create Account
+                </span>
+              </p>
+            </div>
+          )}
           {restaurantConflict && (
             <Checkbox
               containerClassName={" mt-3"}

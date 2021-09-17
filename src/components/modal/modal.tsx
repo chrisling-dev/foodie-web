@@ -1,6 +1,4 @@
-import React from "react";
-import { useCallback } from "react";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 interface IProps {

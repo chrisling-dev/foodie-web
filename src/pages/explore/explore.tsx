@@ -1,10 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
-import React from "react";
 import { useState } from "react";
-import Back from "../../components/back/back";
 import Loader from "../../components/loader/loader";
 import PageContainer from "../../components/page-container/page-container";
-import useMe from "../../hooks/queries/useMe";
 import useHeader from "../../hooks/useHeader";
 import {
   browseRestaurants,
@@ -40,12 +37,10 @@ const BROWSE_RESTAURANTS_QUERY = gql`
   }
 `;
 const Explore = () => {
-  const { data: meData } = useMe();
   const { debouncedSearchQuery } = useHeader();
   const [browsingRestaurant, setBrowsingRestaurant] = useState<
     browseRestaurants_browseRestaurants_restaurants | undefined
   >();
-  const [page, setPage] = useState(1);
   const { data, loading, error } = useQuery<
     browseRestaurants,
     browseRestaurantsVariables
@@ -53,7 +48,7 @@ const Explore = () => {
     variables: {
       input: {
         query: debouncedSearchQuery,
-        offset: page - 1,
+        offset: 0,
         limit: 10,
       },
     },

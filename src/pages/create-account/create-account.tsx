@@ -1,7 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
 import Logo from "../../assets/logo";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
@@ -14,6 +13,7 @@ import {
 import { authTokenVar, isLoggedInVar } from "../../apollo";
 import { AUTH_TOKEN } from "../../utils/constants";
 import Back from "../../components/back/back";
+import useNavigate from "../../hooks/useNavigate";
 
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccount($input: CreateAccountInput!) {
@@ -35,7 +35,7 @@ interface CreateAccountFormProps {
 }
 const CreateAccount = () => {
   useHideHeader();
-  const history = useHistory();
+  const { toHome, toSignIn } = useNavigate();
   const [createAccountMutation, { loading, data }] = useMutation<
     createAccount,
     createAccountVariables
@@ -46,7 +46,7 @@ const CreateAccount = () => {
         localStorage.setItem(AUTH_TOKEN, accessToken);
         authTokenVar(accessToken);
         isLoggedInVar(true);
-        history.push("/");
+        toHome();
       }
     },
   });
@@ -54,8 +54,6 @@ const CreateAccount = () => {
   const { formState, getValues, register } = useForm<CreateAccountFormProps>({
     mode: "onChange",
   });
-
-  const navigateToSignIn = () => history.push("/sign-in");
 
   const onCreateAccount = (
     e: React.FormEvent<HTMLFormElement> | React.FormEvent<HTMLButtonElement>
@@ -74,7 +72,7 @@ const CreateAccount = () => {
     <div className=" min-w-screen min-h-screen bg-blue-50 flex flex-col items-center">
       <div
         className="mb-20 w-full bg-primary p-4 flex items-center justify-center"
-        onClick={() => history.push("/")}
+        onClick={toHome}
       >
         <Logo color="white" />
       </div>
@@ -138,7 +136,7 @@ const CreateAccount = () => {
             Already have an account?{" "}
             <span
               className=" text-primary cursor-pointer hover:opacity-80 transform-300"
-              onClick={navigateToSignIn}
+              onClick={toSignIn}
             >
               Sign In
             </span>

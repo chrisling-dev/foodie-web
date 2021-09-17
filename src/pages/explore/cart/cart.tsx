@@ -5,17 +5,18 @@ import ErrorMessage from "../../../components/error-message/error-message";
 import Loader from "../../../components/loader/loader";
 import useMe from "../../../hooks/queries/useMe";
 import useCart from "../../../hooks/useCart";
+import useNavigate from "../../../hooks/useNavigate";
 import CartItem from "./cart-item/cart-item";
 
 interface IProps {
   className?: string;
 }
 const Cart: React.FC<IProps> = ({ className }) => {
+  const { toSignIn, toCreateAccount } = useNavigate();
   const { data } = useMe();
   const [showCart, setShowCart] = useState(false);
   const { addingToCart, cart, error, loading } = useCart();
 
-  if (!data?.me) return <React.Fragment />;
   return (
     <div
       className={`
@@ -49,27 +50,44 @@ const Cart: React.FC<IProps> = ({ className }) => {
                 )}
               </div>
               <div className=" h-full overflow-y-auto relative">
-                {addingToCart && (
-                  <div className=" w-full h-full bg-white bg-opacity-70 flex items-center justify-center absolute z-30">
-                    <Loader />
-                  </div>
-                )}
-                {!loading &&
-                  cart?.cartItems &&
-                  (cart.cartItems.length > 0 ? (
-                    cart.cartItems.map((item) => (
-                      <CartItem item={item} key={`${item.id}`} />
-                    ))
-                  ) : (
-                    <div className=" w-full h-full flex items-center justify-center p-4">
-                      <p className=" text-gray-400 text-center">
-                        You don't have anything in cart yet!
-                      </p>
-                    </div>
-                  ))}
-                {error && (
-                  <div className="w-full flex items-center justify-center p-4">
-                    <ErrorMessage>{error?.message}</ErrorMessage>
+                {data?.me ? (
+                  <React.Fragment>
+                    {addingToCart && (
+                      <div className=" w-full h-full bg-white bg-opacity-70 flex items-center justify-center absolute z-30">
+                        <Loader />
+                      </div>
+                    )}
+                    {!loading &&
+                      cart?.cartItems &&
+                      (cart.cartItems.length > 0 ? (
+                        cart.cartItems.map((item) => (
+                          <CartItem item={item} key={`${item.id}`} />
+                        ))
+                      ) : (
+                        <div className=" w-full h-full flex items-center justify-center p-4">
+                          <p className=" text-gray-400 text-center">
+                            You don't have anything in cart yet!
+                          </p>
+                        </div>
+                      ))}
+                    {error && (
+                      <div className="w-full flex items-center justify-center p-4">
+                        <ErrorMessage>{error?.message}</ErrorMessage>
+                      </div>
+                    )}
+                  </React.Fragment>
+                ) : (
+                  <div className=" w-full h-full flex flex-col p-4 items-center justify-center">
+                    <p className=" text-center">
+                      <span className=" link" onClick={toSignIn}>
+                        Sign in
+                      </span>{" "}
+                      or{" "}
+                      <span className=" link" onClick={toCreateAccount}>
+                        create account
+                      </span>{" "}
+                      to shop on Foodie!
+                    </p>
                   </div>
                 )}
               </div>
@@ -81,7 +99,11 @@ const Cart: React.FC<IProps> = ({ className }) => {
                   ${(cart?.totalPrice || 0.0).toFixed(2)}
                 </p>
               </div>
-              <Button intent={"primary"} appearance={"primary"}>
+              <Button
+                intent={"primary"}
+                appearance={"primary"}
+                disabled={!data?.me}
+              >
                 Checkout &rarr;
               </Button>
             </div>

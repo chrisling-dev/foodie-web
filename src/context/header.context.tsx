@@ -46,9 +46,15 @@ export const HeaderProvider: React.FC = ({ children }) => {
       }}
     >
       <Header />
-      <div className=" w-full screen-height overflow-y-auto">
+      <div
+        className={`w-full overflow-y-auto ${
+          isHeaderShown && " screen-height"
+        }`}
+      >
         {children}
-        <div className=" h-40 w-full bg-white pointer-events-none" />
+        {isHeaderShown && (
+          <div className=" h-40 w-full bg-white pointer-events-none" />
+        )}
       </div>
     </headerContext.Provider>
   );

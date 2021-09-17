@@ -1,20 +1,20 @@
 import React from "react";
 import { IoMdSearch } from "react-icons/io";
-import { useHistory } from "react-router-dom";
 import useHeader from "../../../hooks/useHeader";
+import useNavigate from "../../../hooks/useNavigate";
 
 interface IProps {
   hideMenu: () => any;
 }
 const SearchBar: React.FC<IProps> = ({ hideMenu }) => {
+  const { toHome } = useNavigate();
   const { searchQuery, search } = useHeader();
-  const history = useHistory();
   const onFocus = () => {
     hideMenu();
   };
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    history.push("/");
+    toHome();
     if (search) search(e.target.value);
   };
   return (
