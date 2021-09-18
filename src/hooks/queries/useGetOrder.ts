@@ -1,4 +1,6 @@
-import { gql } from "@apollo/client";
+import { gql, QueryHookOptions, useQuery } from "@apollo/client";
+import { ORDER_FRAGMENT } from "../../fragments";
+import { getOrder, getOrderVariables } from "../../__generated__/getOrder";
 
 const GET_ORDER_QUERY = gql`
   query getOrder($input: GetOrderInput!) {
@@ -9,42 +11,17 @@ const GET_ORDER_QUERY = gql`
         message
       }
       order {
-        id
-        price
-        status
-        statusHistory {
-          id
-          status
-          user {
-            id
-            name
-            role
-          }
-        }
-        restaurant {
-          id
-          name
-          description
-          backgroundImage
-        }
-        items {
-          id
-          name
-          quantity
-          price
-          photo
-          dish {
-            id
-            name
-          }
-        }
+        ...OrderParts
       }
     }
   }
+  ${ORDER_FRAGMENT}
 `;
 
-const useGetOrder = () => {
-  return;
+const useGetOrder = (
+  options: QueryHookOptions<getOrder, getOrderVariables>
+) => {
+  return useQuery<getOrder, getOrderVariables>(GET_ORDER_QUERY, options);
 };
 
 export default useGetOrder;

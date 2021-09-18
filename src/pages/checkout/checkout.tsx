@@ -23,6 +23,7 @@ import CountdownButton from "./countdown-button/countdown-button";
 import closeAnimation from "../../assets/animations/close.json";
 import doneAnimation from "../../assets/animations/done.json";
 import Animation from "../../components/animation/animation";
+import useUpdateOrderStatus from "../../hooks/queries/useUpdateOrder";
 
 const CREATE_ORDER_MUTATION = gql`
   mutation createOrder($input: CreateOrderInput!) {
@@ -46,6 +47,7 @@ const Checkout = () => {
   const apolloClient = useApolloClient();
   const { toHome, toOrder } = useNavigate();
   const { cart, loading, emptyCart, refetch } = useCart();
+  const { updateOrderStatus } = useUpdateOrderStatus();
   const [done, setDone] = useState(false);
   const { formState, getValues, register } = useForm<IFormProps>({
     mode: "onChange",
@@ -104,6 +106,10 @@ const Checkout = () => {
     if (data?.createOrder.orderId) toOrder(data.createOrder.orderId, true);
   };
 
+  const onCancel = () => {
+    if (data?.createOrder.orderId)
+      updateOrderStatus(data.createOrder.orderId, onComplete);
+  };
   return (
     <PageContainer>
       <Back />
@@ -212,11 +218,16 @@ const Checkout = () => {
           </Button>
         )}
         {data?.createOrder.orderId && (
-          <CountdownButton
-            onClick={onComplete}
-            onDone={onComplete}
-            message={(time) => `You will be redirected in ${time}`}
-          />
+          <div className=" w-full">
+            <CountdownButton
+              onClick={onComplete}
+              onDone={onComplete}
+              message={(time) => `You will be redirected in ${time}`}
+            />
+            <Button className=" w-full mt-3" intent="danger" onClick={onCancel}>
+              Cancel Order
+            </Button>
+          </div>
         )}
       </Modal>
     </PageContainer>
