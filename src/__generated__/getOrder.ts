@@ -25,6 +25,7 @@ export interface getOrder_getOrder_order_statusHistory_user {
 export interface getOrder_getOrder_order_statusHistory {
   __typename: "OrderStatusHistory";
   id: number;
+  createdAt: any;
   status: OrderStatusStatus;
   user: getOrder_getOrder_order_statusHistory_user | null;
 }
@@ -56,6 +57,7 @@ export interface getOrder_getOrder_order_items {
 export interface getOrder_getOrder_order {
   __typename: "OrderWithStatus";
   id: number;
+  createdAt: any;
   price: number;
   status: OrderStatusStatus;
   statusHistory: getOrder_getOrder_order_statusHistory[];

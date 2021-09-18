@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router";
 import Back from "../../components/back/back";
+import OrderDetails from "../../components/order-details/order-details";
 import PageContainer from "../../components/page-container/page-container";
 import useGetOrder from "../../hooks/queries/useGetOrder";
 import { OrderStatusStatus } from "../../__generated__/globalTypes";
@@ -8,7 +9,7 @@ import { OrderStatusStatus } from "../../__generated__/globalTypes";
 const MyOrder = () => {
   const { id } = useParams<{ id: string }>();
   const [done, setDone] = useState(false);
-  const { data } = useGetOrder({
+  const { data, loading } = useGetOrder({
     variables: {
       input: { id: +id },
     },
@@ -22,7 +23,11 @@ const MyOrder = () => {
   return (
     <PageContainer>
       <Back />
-      <div></div>
+      <div className=" w-full">
+        {!loading && data?.getOrder.order && (
+          <OrderDetails order={data.getOrder.order} />
+        )}
+      </div>
     </PageContainer>
   );
 };

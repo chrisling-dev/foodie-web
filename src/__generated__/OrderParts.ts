@@ -19,6 +19,7 @@ export interface OrderParts_statusHistory_user {
 export interface OrderParts_statusHistory {
   __typename: "OrderStatusHistory";
   id: number;
+  createdAt: any;
   status: OrderStatusStatus;
   user: OrderParts_statusHistory_user | null;
 }
@@ -50,6 +51,7 @@ export interface OrderParts_items {
 export interface OrderParts {
   __typename: "OrderWithStatus";
   id: number;
+  createdAt: any;
   price: number;
   status: OrderStatusStatus;
   statusHistory: OrderParts_statusHistory[];
