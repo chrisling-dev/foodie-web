@@ -6,8 +6,8 @@
   - Restaurant Owner: Can CRUD restaurants and meals
 - [x] A Restaurant should have a name and description of the type of food they serve
 - [x] A meal should have a name, description, and price
-- [ ] Orders consist of a list of meals, date, total amount and status
-- [ ] An Order should be placed for a single Restaurant only, but it can have multiple meals
+- [x] Orders consist of a list of meals, date, total amount and status
+- [x] An Order should be placed for a single Restaurant only, but it can have multiple meals
 - [ ] Restaurant Owners and Regular Users can change the Order Status respecting below flow and permissions:
   - Placed: Once a Regular user places an Order
   - Canceled: If the Regular User cancel the Order
