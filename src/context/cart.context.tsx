@@ -80,17 +80,19 @@ interface IProps {
   loading: boolean;
   changeCart: (cartInput: AddToCartInput) => void;
   emptyCart: () => void;
+  refetch: () => void;
 }
 export const cartContext = createContext<IProps>({
   addingToCart: false,
   loading: false,
   changeCart: () => {},
   emptyCart: () => {},
+  refetch: () => {},
 });
 const CartProvider: React.FC = ({ children }) => {
   const [cart, setCart] = useState<myCart_myCart_cart>();
   const isLoggedIn = useReactiveVar(isLoggedInVar);
-  const { data, loading } = useQuery<myCart>(MY_CART_QUERY, {
+  const { data, loading, refetch } = useQuery<myCart>(MY_CART_QUERY, {
     onCompleted({ myCart }) {
       if (myCart.cart) {
         setCart(myCart.cart);
@@ -142,6 +144,7 @@ const CartProvider: React.FC = ({ children }) => {
         loading,
         changeCart,
         emptyCart,
+        refetch,
       }}
     >
       {children}

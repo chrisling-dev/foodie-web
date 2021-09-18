@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Back from "../../components/back/back";
 import Loader from "../../components/loader/loader";
 import PageContainer from "../../components/page-container/page-container";
@@ -18,6 +18,11 @@ import ErrorMessage from "../../components/error-message/error-message";
 import useNavigate from "../../hooks/useNavigate";
 import { MY_CART_QUERY } from "../../context/cart.context";
 import { myCart } from "../../__generated__/myCart";
+import Modal from "../../components/modal/modal";
+import CountdownButton from "./countdown-button/countdown-button";
+import closeAnimation from "../../assets/animations/close.json";
+import doneAnimation from "../../assets/animations/done.json";
+import Animation from "../../components/animation/animation";
 
 const CREATE_ORDER_MUTATION = gql`
   mutation createOrder($input: CreateOrderInput!) {
@@ -39,8 +44,9 @@ interface IFormProps {
 
 const Checkout = () => {
   const apolloClient = useApolloClient();
-  const { toOrder } = useNavigate();
-  const { cart, loading, emptyCart } = useCart();
+  const { toHome, toOrder } = useNavigate();
+  const { cart, loading, emptyCart, refetch } = useCart();
+  const [done, setDone] = useState(false);
   const { formState, getValues, register } = useForm<IFormProps>({
     mode: "onChange",
   });
@@ -72,8 +78,10 @@ const Checkout = () => {
           });
         }
         emptyCart();
-        toOrder(data.createOrder.orderId);
+      } else if (data.createOrder.error) {
+        refetch();
       }
+      setDone(true);
     },
   });
 
@@ -91,6 +99,11 @@ const Checkout = () => {
       });
     }
   };
+
+  const onComplete = () => {
+    if (data?.createOrder.orderId) toOrder(data.createOrder.orderId, true);
+  };
+
   return (
     <PageContainer>
       <Back />
@@ -134,13 +147,6 @@ const Checkout = () => {
               >
                 Place Order
               </Button>
-              {data?.createOrder.error ? (
-                <ErrorMessage className=" mt-2">
-                  {data?.createOrder.error.message}
-                </ErrorMessage>
-              ) : (
-                ""
-              )}
             </div>
           </div>
           <div className=" w-full lg:w-3/5 bg-gray-50 rounded-lg p-3 ">
@@ -176,6 +182,43 @@ const Checkout = () => {
           <p>You don't have anything in your cart!</p>
         </div>
       )}
+      <Modal
+        title={
+          data?.createOrder.error
+            ? "Order failed!"
+            : `#${data?.createOrder.orderId} Your order has been placed!`
+        }
+        showModal={done}
+      >
+        <div className=" w-full bg-gray-100 rounded-lg p-3 mt-2">
+          <Animation
+            animation={data?.createOrder.error ? closeAnimation : doneAnimation}
+            speed={0.6}
+          />
+          {data?.createOrder.error && (
+            <ErrorMessage className=" mt-3">
+              {data?.createOrder.error?.message}
+            </ErrorMessage>
+          )}
+        </div>
+        {data?.createOrder.error && (
+          <Button
+            onClick={toHome}
+            className=" w-full mt-3"
+            intent="danger"
+            appearance="primary"
+          >
+            Back to Explore
+          </Button>
+        )}
+        {data?.createOrder.orderId && (
+          <CountdownButton
+            onClick={onComplete}
+            onDone={onComplete}
+            message={(time) => `You will be redirected in ${time}`}
+          />
+        )}
+      </Modal>
     </PageContainer>
   );
 };

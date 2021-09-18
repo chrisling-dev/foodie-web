@@ -6,6 +6,7 @@ import Dashboard from "../pages/dashboard/dashboard";
 import EditDish from "../pages/edit-dish/edit-dish";
 import EditRestaurant from "../pages/edit-restaurant/edit-restaurant";
 import Explore from "../pages/explore/explore";
+import MyOrder from "../pages/my-order/my-order";
 import MyOrders from "../pages/my-orders/my-orders";
 import MyProfile from "../pages/my-profile/my-profile";
 import MyRestaurant from "../pages/my-restaurant/my-restaurant";
@@ -61,16 +62,20 @@ export const restaurantOwnersRoutes = [
 
 export const regularUsersRoutes = [
   {
+    component: Checkout,
+    path: "/checkout",
+  },
+  {
+    component: MyOrder,
+    path: "/my-order/:id",
+  },
+  {
     component: MyOrders,
     path: "/my-orders",
   },
   {
     component: MyProfile,
     path: "/my-profile",
-  },
-  {
-    component: Checkout,
-    path: "/checkout",
   },
 ];
 
