@@ -8,6 +8,29 @@ import Input from "../../components/input/input";
 import Button from "../../components/button/button";
 import CartItem from "../explore/cart/cart-item/cart-item";
 import { useForm } from "react-hook-form";
+import gql from "graphql-tag";
+import { useApolloClient, useMutation } from "@apollo/client";
+import {
+  createOrder,
+  createOrderVariables,
+} from "../../__generated__/createOrder";
+import ErrorMessage from "../../components/error-message/error-message";
+import useNavigate from "../../hooks/useNavigate";
+import { MY_CART_QUERY } from "../../context/cart.context";
+import { myCart } from "../../__generated__/myCart";
+
+const CREATE_ORDER_MUTATION = gql`
+  mutation createOrder($input: CreateOrderInput!) {
+    createOrder(input: $input) {
+      ok
+      error {
+        code
+        message
+      }
+      orderId
+    }
+  }
+`;
 
 interface IFormProps {
   phoneNo: string;
@@ -15,10 +38,59 @@ interface IFormProps {
 }
 
 const Checkout = () => {
-  const { cart, loading } = useCart();
-  const { register, formState } = useForm<IFormProps>({
+  const apolloClient = useApolloClient();
+  const { toOrder } = useNavigate();
+  const { cart, loading, emptyCart } = useCart();
+  const { formState, getValues, register } = useForm<IFormProps>({
     mode: "onChange",
   });
+
+  const [createOrderMutation, { data, loading: creatingOrder }] = useMutation<
+    createOrder,
+    createOrderVariables
+  >(CREATE_ORDER_MUTATION, {
+    onCompleted(data) {
+      if (data.createOrder.orderId) {
+        const currentCartData = apolloClient.readQuery<myCart>({
+          query: MY_CART_QUERY,
+        });
+        if (currentCartData && currentCartData.myCart.cart) {
+          apolloClient.writeQuery<myCart>({
+            query: MY_CART_QUERY,
+            data: {
+              ...currentCartData,
+              myCart: {
+                ...currentCartData?.myCart,
+                cart: {
+                  ...currentCartData?.myCart.cart,
+                  restaurant: null,
+                  cartItems: [],
+                  totalPrice: 0,
+                },
+              },
+            },
+          });
+        }
+        emptyCart();
+        toOrder(data.createOrder.orderId);
+      }
+    },
+  });
+
+  const onCreateOrder = () => {
+    const { deliveryAddress, phoneNo } = getValues();
+
+    if (deliveryAddress && phoneNo) {
+      createOrderMutation({
+        variables: {
+          input: {
+            phoneNo,
+            deliveryAddress,
+          },
+        },
+      });
+    }
+  };
   return (
     <PageContainer>
       <Back />
@@ -52,15 +124,23 @@ const Checkout = () => {
               label="Delivery Address"
               placeholder={`e.g. 123, abc street, city, postcode...`}
             />
-            <div className=" flex items-center justify-end pt-4">
+            <div className=" flex flex-col items-center lg:items-end justify-end pt-4">
               <Button
                 className=" w-full lg:w-auto"
                 appearance="primary"
                 intent="primary"
-                disabled={!formState.isValid}
+                disabled={!formState.isValid || creatingOrder}
+                onClick={onCreateOrder}
               >
                 Place Order
               </Button>
+              {data?.createOrder.error ? (
+                <ErrorMessage className=" mt-2">
+                  {data?.createOrder.error.message}
+                </ErrorMessage>
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <div className=" w-full lg:w-3/5 bg-gray-50 rounded-lg p-3 ">

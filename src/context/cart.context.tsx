@@ -6,7 +6,7 @@ import { myCart, myCart_myCart_cart } from "../__generated__/myCart";
 import { isLoggedInVar } from "../apollo";
 import { AddToCartInput } from "../__generated__/globalTypes";
 
-const MY_CART_QUERY = gql`
+export const MY_CART_QUERY = gql`
   query myCart {
     myCart {
       ok
@@ -79,11 +79,13 @@ interface IProps {
   error?: ErrorProps | null;
   loading: boolean;
   changeCart: (cartInput: AddToCartInput) => void;
+  emptyCart: () => void;
 }
 export const cartContext = createContext<IProps>({
   addingToCart: false,
   loading: false,
   changeCart: () => {},
+  emptyCart: () => {},
 });
 const CartProvider: React.FC = ({ children }) => {
   const [cart, setCart] = useState<myCart_myCart_cart>();
@@ -120,6 +122,17 @@ const CartProvider: React.FC = ({ children }) => {
       },
     });
   };
+
+  const emptyCart = () => {
+    if (cart)
+      setCart({
+        ...cart,
+        restaurant: null,
+        cartItems: [],
+        totalPrice: 0,
+      });
+  };
+
   return (
     <cartContext.Provider
       value={{
@@ -128,6 +141,7 @@ const CartProvider: React.FC = ({ children }) => {
         error: data?.myCart.error || addToCartData?.addToCart.error,
         loading,
         changeCart,
+        emptyCart,
       }}
     >
       {children}

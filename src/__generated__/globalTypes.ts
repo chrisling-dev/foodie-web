@@ -38,6 +38,11 @@ export interface CreateAccountInput {
   name: string;
 }
 
+export interface CreateOrderInput {
+  deliveryAddress: string;
+  phoneNo: string;
+}
+
 export interface CreateRestaurantInput {
   name: string;
   description: string;

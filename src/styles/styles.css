@@ -1812,6 +1812,10 @@ body {
     flex-direction: row;
   }
 
+  .lg\:items-end {
+    align-items: flex-end;
+  }
+
   .lg\:overflow-hidden {
     overflow: hidden;
   }
