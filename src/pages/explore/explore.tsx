@@ -52,6 +52,7 @@ const Explore = () => {
         limit: 10,
       },
     },
+    fetchPolicy: "network-only",
   });
 
   const onBrowseRestaurant = (

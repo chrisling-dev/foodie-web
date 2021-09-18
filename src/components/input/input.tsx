@@ -6,6 +6,7 @@ import ErrorMessage from "../error-message/error-message";
 
 interface IProps extends React.HTMLProps<HTMLInputElement> {
   containerClassName?: string;
+  description?: string;
   error?: string;
   innerContainerClassName?: string;
   inputClassName?: string;
@@ -19,6 +20,7 @@ interface IProps extends React.HTMLProps<HTMLInputElement> {
 }
 const Input: React.FC<IProps> = ({
   containerClassName,
+  description,
   error,
   innerContainerClassName,
   inputClassName,
@@ -73,6 +75,11 @@ const Input: React.FC<IProps> = ({
           )}
         </div>
       </div>
+      {description ? (
+        <p className=" text-sm text-gray-500 italic ml-2 mt-1">{description}</p>
+      ) : (
+        ""
+      )}
       {error ? <ErrorMessage className=" mt-2">{error}</ErrorMessage> : ""}
     </div>
   );

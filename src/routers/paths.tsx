@@ -1,4 +1,5 @@
 import AddDish from "../pages/add-dish/add-dish";
+import Checkout from "../pages/checkout/checkout";
 import CreateAccount from "../pages/create-account/create-account";
 import CreateRestaurant from "../pages/create-restaurant/create-restaurant";
 import Dashboard from "../pages/dashboard/dashboard";
@@ -66,6 +67,10 @@ export const regularUsersRoutes = [
   {
     component: MyProfile,
     path: "/my-profile",
+  },
+  {
+    component: Checkout,
+    path: "/checkout",
   },
 ];
 

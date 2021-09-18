@@ -12,7 +12,7 @@ interface IProps {
   className?: string;
 }
 const Cart: React.FC<IProps> = ({ className }) => {
-  const { toSignIn, toCreateAccount } = useNavigate();
+  const { toCheckout, toCreateAccount, toSignIn } = useNavigate();
   const { data } = useMe();
   const [showCart, setShowCart] = useState(false);
   const { addingToCart, cart, error, loading } = useCart();
@@ -102,7 +102,8 @@ const Cart: React.FC<IProps> = ({ className }) => {
               <Button
                 intent={"primary"}
                 appearance={"primary"}
-                disabled={!data?.me}
+                disabled={!data?.me || (cart?.cartItems?.length || 0) <= 0}
+                onClick={toCheckout}
               >
                 Checkout &rarr;
               </Button>
