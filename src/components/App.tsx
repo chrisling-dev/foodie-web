@@ -6,7 +6,7 @@ import { HeaderProvider } from "../context/header.context";
 import SignedInRouter from "../routers/signed-in.router";
 import SignedOutRouter from "../routers/signed-out.router";
 
-function App() {
+export function App() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   return (
     <div className="App">

@@ -43,6 +43,7 @@
     "build": "react-scripts build",
     "prebuild": "npm run tailwind:prodbuild",
     "test": "react-scripts test",
+    "test:dev": "npm run test -- --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -64,6 +65,13 @@
     ]
   },
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "jest-canvas-mock": "^2.3.1"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "./src/components/**/*.tsx",
+      "./src/pages/**/*.tsx"
+    ]
   }
 }

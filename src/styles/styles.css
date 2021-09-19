@@ -1499,6 +1499,10 @@ body {
   padding-bottom: 0.75rem;
 }
 
+.pt-80 {
+  padding-top: 20rem;
+}
+
 .text-left {
   text-align: left;
 }
