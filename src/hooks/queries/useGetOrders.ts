@@ -13,6 +13,11 @@ const GET_ORDERS_QUERY = gql`
       orders {
         ...OrderParts
       }
+      restaurant {
+        id
+        name
+        description
+      }
     }
   }
   ${ORDER_FRAGMENT}

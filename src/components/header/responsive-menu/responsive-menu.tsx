@@ -25,7 +25,7 @@ const ResponsiveMenu: React.FC<IProps> = ({
     history.push(path);
     onNavigate();
   };
-  const responsiveMenuClassname = ` overflow-hidden z-20 absolute flex bg-white bg-blur bg-opacity-60 p-4 top-full left-0 w-full flex-col shadow-md lg:shadow-none lg:static lg:w-auto lg:h-auto lg:flex-row lg:p-0 transform duration-700 lg:max-h-full ${
+  const responsiveMenuClassname = ` overflow-hidden z-20 absolute flex bg-white bg-blur bg-opacity-90 p-4 top-full left-0 w-full flex-col shadow-md lg:shadow-none lg:static lg:w-auto lg:h-auto lg:flex-row lg:p-0 transform duration-700 lg:max-h-full ${
     showMenu ? " max-h-48 " : "  max-h-0 py-0"
   }`;
   return (

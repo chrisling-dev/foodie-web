@@ -31,6 +31,10 @@ const restaurantOwnersMenu = [
     path: "/dashboard",
   },
   {
+    name: "All Orders",
+    path: "/restaurant-orders",
+  },
+  {
     name: "My Profile",
     path: "/my-profile",
   },

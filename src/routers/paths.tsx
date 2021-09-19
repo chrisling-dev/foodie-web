@@ -58,6 +58,18 @@ export const restaurantOwnersRoutes = [
     component: MyRestaurant,
     path: "/my-restaurant/:restaurantId",
   },
+  {
+    component: MyOrder,
+    path: "/my-order/:id",
+  },
+  {
+    component: MyOrders,
+    path: "/restaurant-orders",
+  },
+  {
+    component: MyOrders,
+    path: "/restaurant-orders/:restaurantId",
+  },
 ];
 
 export const regularUsersRoutes = [

@@ -77,11 +77,19 @@ export interface getOrders_getOrders_orders {
   user: getOrders_getOrders_orders_user | null;
 }
 
+export interface getOrders_getOrders_restaurant {
+  __typename: "Restaurant";
+  id: number;
+  name: string;
+  description: string;
+}
+
 export interface getOrders_getOrders {
   __typename: "GetOrdersOutput";
   ok: boolean;
   error: getOrders_getOrders_error | null;
   orders: getOrders_getOrders_orders[] | null;
+  restaurant: getOrders_getOrders_restaurant | null;
 }
 
 export interface getOrders {

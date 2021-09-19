@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useMe from "../../hooks/queries/useMe";
 import useUpdateOrderStatus from "../../hooks/queries/useUpdateOrder";
 import { dateGenerator } from "../../utils/helper";
@@ -7,6 +7,20 @@ import { OrderStatusStatus, UserRole } from "../../__generated__/globalTypes";
 import Button from "../button/button";
 import OrderItem from "./order-item/order-item";
 import { orderStatusMap } from "../../utils/order-status.map";
+import { seenOrder, seenOrderVariables } from "../../__generated__/seenOrder";
+import { gql, useMutation } from "@apollo/client";
+
+const SEEN_ORDER_MUTATION = gql`
+  mutation seenOrder($input: SeenOrderInput!) {
+    seenOrder(input: $input) {
+      ok
+      error {
+        code
+        message
+      }
+    }
+  }
+`;
 
 interface IProps {
   order: getOrder_getOrder_order;
@@ -15,6 +29,9 @@ interface IProps {
 const OrderDetails: React.FC<IProps> = ({ order }) => {
   const displayDate = dateGenerator(order.createdAt);
   const [showItemDetails, setShowItemDetails] = useState(false);
+  const [seenOrderMutation] = useMutation<seenOrder, seenOrderVariables>(
+    SEEN_ORDER_MUTATION
+  );
   const { updateOrderStatus, loading } = useUpdateOrderStatus();
 
   const { data } = useMe();
@@ -31,6 +48,16 @@ const OrderDetails: React.FC<IProps> = ({ order }) => {
             : "restaurantDescription"
         ] || ""
       : "";
+
+  useEffect(() => {
+    if (data?.me) {
+      if (
+        (data.me.role === UserRole.RegularUser && !order.userSeen) ||
+        (data.me.role === UserRole.RestaurantOwner && !order.restaurantSeen)
+      )
+        seenOrderMutation({ variables: { input: { id: order.id } } });
+    }
+  }, [order, data, seenOrderMutation]);
 
   return (
     <div className=" w-full">

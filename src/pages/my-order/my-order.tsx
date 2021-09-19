@@ -9,6 +9,7 @@ import { OrderStatusStatus } from "../../__generated__/globalTypes";
 const MyOrder = () => {
   const { id } = useParams<{ id: string }>();
   const [done, setDone] = useState(false);
+
   const { data, loading } = useGetOrder({
     variables: {
       input: { id: +id },

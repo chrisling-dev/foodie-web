@@ -83,6 +83,11 @@ export interface MyRestaurantInput {
   id: number;
 }
 
+export interface SeenOrderInput {
+  id?: number | null;
+  all?: boolean | null;
+}
+
 export interface SignInInput {
   email: string;
   password: string;

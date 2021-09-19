@@ -103,7 +103,13 @@ const MyRestaurant = () => {
               >
                 Add Dish &rarr;
               </Button>
-              <Button onClick={() => history.push("/restaurant-orders")}>
+              <Button
+                onClick={() =>
+                  history.push(
+                    `/restaurant-orders/${data.myRestaurant.restaurant?.id}`
+                  )
+                }
+              >
                 View Orders &rarr;
               </Button>
             </div>
