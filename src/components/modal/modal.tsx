@@ -3,6 +3,7 @@ import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 interface IProps {
   customComponent?: any;
+  hideBg?: boolean;
   showModal?: boolean;
   title?: string;
   onClose?: () => void;
@@ -10,6 +11,7 @@ interface IProps {
 const Modal: React.FC<IProps> = ({
   children,
   customComponent,
+  hideBg,
   showModal,
   title,
   onClose,
@@ -19,9 +21,11 @@ const Modal: React.FC<IProps> = ({
   useOnClickOutside(modalRef, onClose);
   return (
     <div
-      className={` fixed z-50 p-4 top-0 left-0 w-screen h-screen bg-gray-600 flex items-center justify-center transform-300 ${
+      className={` fixed z-50 p-4 top-0 left-0 w-screen h-screen flex items-center justify-center transform-300 
+      ${hideBg ? "bg-white" : "bg-gray-600"}
+      ${
         showModal
-          ? " opacity-100 bg-opacity-70"
+          ? `opacity-100 ${hideBg ? "bg-opacity-100" : "bg-opacity-70"}`
           : "opacity-0 bg-opacity-0 pointer-events-none"
       }`}
     >
@@ -30,7 +34,9 @@ const Modal: React.FC<IProps> = ({
       ) : (
         <div
           ref={modalRef}
-          className={`w-full max-w-sm bg-white shadow-md rounded-lg p-4 duration-500 ${
+          className={`w-full max-w-sm bg-white ${
+            !hideBg && "shadow-md"
+          } rounded-lg p-4 duration-500 ${
             showModal ? " translate-y-0" : " translate-y-full"
           }`}
         >

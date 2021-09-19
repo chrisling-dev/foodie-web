@@ -24,6 +24,7 @@ import closeAnimation from "../../assets/animations/close.json";
 import doneAnimation from "../../assets/animations/done.json";
 import Animation from "../../components/animation/animation";
 import useUpdateOrderStatus from "../../hooks/queries/useUpdateOrder";
+import { DELIVERY_ADDRESS, PHONE_NO } from "../../utils/constants";
 
 const CREATE_ORDER_MUTATION = gql`
   mutation createOrder($input: CreateOrderInput!) {
@@ -51,6 +52,10 @@ const Checkout = () => {
   const [done, setDone] = useState(false);
   const { formState, getValues, register } = useForm<IFormProps>({
     mode: "onChange",
+    defaultValues: {
+      phoneNo: localStorage.getItem(PHONE_NO) || "",
+      deliveryAddress: localStorage.getItem(DELIVERY_ADDRESS) || "",
+    },
   });
 
   const [createOrderMutation, { data, loading: creatingOrder }] = useMutation<
@@ -91,6 +96,8 @@ const Checkout = () => {
     const { deliveryAddress, phoneNo } = getValues();
 
     if (deliveryAddress && phoneNo) {
+      localStorage.setItem(PHONE_NO, phoneNo);
+      localStorage.setItem(DELIVERY_ADDRESS, deliveryAddress);
       createOrderMutation({
         variables: {
           input: {
@@ -194,6 +201,7 @@ const Checkout = () => {
             ? "Order failed!"
             : `#${data?.createOrder.orderId} Your order has been placed!`
         }
+        hideBg={true}
         showModal={done}
       >
         <div className=" w-full bg-gray-100 rounded-lg p-3 mt-2">
