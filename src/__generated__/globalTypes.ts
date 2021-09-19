@@ -75,6 +75,10 @@ export interface GetOrderInput {
   restaurantId?: number | null;
 }
 
+export interface GetOrdersInput {
+  id?: number | null;
+}
+
 export interface MyRestaurantInput {
   id: number;
 }
