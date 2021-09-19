@@ -55,15 +55,24 @@ export interface getOrder_getOrder_order_statusHistory {
   user: getOrder_getOrder_order_statusHistory_user | null;
 }
 
+export interface getOrder_getOrder_order_user {
+  __typename: "User";
+  id: number;
+  name: string;
+}
+
 export interface getOrder_getOrder_order {
   __typename: "OrderWithStatus";
   id: number;
   createdAt: any;
   price: number;
   status: OrderStatusStatus;
+  deliveryAddress: string;
+  phoneNo: string;
   items: getOrder_getOrder_order_items[];
   restaurant: getOrder_getOrder_order_restaurant | null;
   statusHistory: getOrder_getOrder_order_statusHistory[];
+  user: getOrder_getOrder_order_user | null;
 }
 
 export interface getOrder_getOrder {

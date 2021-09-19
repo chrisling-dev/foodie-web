@@ -6,6 +6,8 @@ export const ORDER_FRAGMENT = gql`
     createdAt
     price
     status
+    deliveryAddress
+    phoneNo
     items {
       id
       description
@@ -33,6 +35,10 @@ export const ORDER_FRAGMENT = gql`
         name
         role
       }
+    }
+    user {
+      id
+      name
     }
   }
 `;

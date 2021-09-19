@@ -49,13 +49,22 @@ export interface OrderParts_statusHistory {
   user: OrderParts_statusHistory_user | null;
 }
 
+export interface OrderParts_user {
+  __typename: "User";
+  id: number;
+  name: string;
+}
+
 export interface OrderParts {
   __typename: "OrderWithStatus";
   id: number;
   createdAt: any;
   price: number;
   status: OrderStatusStatus;
+  deliveryAddress: string;
+  phoneNo: string;
   items: OrderParts_items[];
   restaurant: OrderParts_restaurant | null;
   statusHistory: OrderParts_statusHistory[];
+  user: OrderParts_user | null;
 }

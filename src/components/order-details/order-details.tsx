@@ -61,7 +61,26 @@ const OrderDetails: React.FC<IProps> = ({ order }) => {
         )}
       </div>
       <div className=" w-full flex flex-col lg:flex-row items-start">
-        <div className=" w-full p-3  border-solid border-gray-200 lg:border-r">
+        <div className=" w-full lg:pr-3  border-solid border-gray-200 lg:border-r">
+          <div className=" w-full">
+            <p className=" small-title">Delivery Information</p>
+            <div className=" py-2">
+              <p className=" text-xs text-gray-600 font-semibold">
+                Customer Name
+              </p>
+              <p className=" text-gray-500 text-sm">{order.user?.name}</p>
+            </div>
+            <div className=" py-2">
+              <p className=" text-xs text-gray-600 font-semibold">Contact No</p>
+              <p className=" text-gray-500 text-sm">{order.phoneNo}</p>
+            </div>
+            <div className=" py-2">
+              <p className=" text-xs text-gray-600 font-semibold">
+                Delivery Address
+              </p>
+              <p className=" text-gray-500 text-sm">{order.deliveryAddress}</p>
+            </div>
+          </div>
           {data?.me?.role === UserRole.RegularUser && (
             <div className=" w-full">
               <p className=" small-title">

@@ -1876,6 +1876,11 @@ body {
     padding-right: 1rem;
   }
 
+  .lg\:px-0 {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
   .lg\:pb-0 {
     padding-bottom: 0px;
   }
@@ -1906,6 +1911,10 @@ body {
 
   .lg\:pb-4 {
     padding-bottom: 1rem;
+  }
+
+  .lg\:pr-3 {
+    padding-right: 0.75rem;
   }
 
   .lg\:shadow-none {
