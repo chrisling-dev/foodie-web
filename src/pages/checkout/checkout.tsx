@@ -117,6 +117,8 @@ const Checkout = () => {
     if (data?.createOrder.orderId)
       updateOrderStatus(data.createOrder.orderId, onComplete);
   };
+
+  console.log(formState.errors.phoneNo);
   return (
     <PageContainer>
       <Back />
@@ -130,6 +132,7 @@ const Checkout = () => {
             <Input
               register={register("phoneNo", {
                 required: "Please provide a valid phone number",
+                pattern: /^\d+$/,
               })}
               containerClassName="mt-3"
               error={formState.errors.phoneNo?.message}

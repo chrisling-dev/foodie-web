@@ -72,7 +72,7 @@ const Explore = () => {
       {loading && <Loader />}
       {!loading && data?.browseRestaurants.restaurants && (
         <div className=" flex items-start">
-          <div className=" flex flex-col w-full h-full overflow-y-auto ">
+          <div className=" flex flex-col w-full h-full overflow-y-auto p-2 ">
             {data?.browseRestaurants.restaurants.length > 0 ? (
               data?.browseRestaurants.restaurants?.map((restaurant) => (
                 <RestaurantCard
