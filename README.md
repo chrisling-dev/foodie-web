@@ -8,17 +8,17 @@
 - [x] A meal should have a name, description, and price
 - [x] Orders consist of a list of meals, date, total amount and status
 - [x] An Order should be placed for a single Restaurant only, but it can have multiple meals
-- [ ] Restaurant Owners and Regular Users can change the Order Status respecting below flow and permissions:
+- [x] Restaurant Owners and Regular Users can change the Order Status respecting below flow and permissions:
   - Placed: Once a Regular user places an Order
   - Canceled: If the Regular User cancel the Order
   - Processing: Once the Restaurant Owner starts to make the meals
   - In Route: Once the meal is finished and Restaurant Owner marks it's on the way
   - Delivered: Once the Restaurant Owner receives information that the meal was delivered by their staff
   - Received: Once the Regular User receives the meal and marks it as Received
-- [ ] Status should follow the sequence as stated above, and not allowed to move back
-- [ ] Status can not be changed by a different user than is stated above
-- [ ] Orders should have a history about the date and time of the status changing
-- [ ] Both Regular Users and Restaurant Owners should be able to see a list of the orders
+- [x] Status should follow the sequence as stated above, and not allowed to move back
+- [x] Status can not be changed by a different user than is stated above
+- [x] Orders should have a history about the date and time of the status changing
+- [x] Both Regular Users and Restaurant Owners should be able to see a list of the orders
 - [ ] Restaurant Owners have the ability to block a User
 
 ## Regular User flows (Screens)
@@ -29,8 +29,8 @@
 - [x] Explore (Browse list of restaurants and their food)
 - [x] Restaurants (When user clicks into a restaurant, they can see all food offered by the restaurant)
 - [x] Cart (If user tries to add food from a different restaurant to cart, show a prompt that asks if user is ok if we clear his current cart)
-- [ ] Order History Page
-- [ ] Order details page
+- [x] Order History Page
+- [x] Order details page
 
 ## Restaurant Owners flows
 
@@ -41,8 +41,9 @@
 - [x] Add meal
 - [x] Edit meal
 - [x] Delete meal
-- [ ] My orders (Filter by status)
-- [ ] Order details: Can also block user from this page
+- [x] My orders
+- [x] Order details
+- [ ] Block user
 - [ ] Blocked Users: Can unblock user
 
 # Project Structure
@@ -53,6 +54,7 @@
 >   - **context** // context stores
 >   - **hooks** // who doesn't like hooks lol
 >   - **pages** // all the pages
+>     - **pages related components**
 >   - **router** // routers like signedInRouter and signedOutRouter
 >   - **styles** // styles and configuration, mostly tailwind stuffs
 >   - **utils** // things I don't know where to put

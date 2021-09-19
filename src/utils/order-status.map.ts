@@ -21,7 +21,7 @@ export const orderStatusMap = {
     },
   },
   In_Route: {
-    displayName: "Order is OTW!",
+    displayName: "Order is OTW",
     userDescription: "Your order is OTW to your delivery address!",
     restaurantAction: {
       text: "Mark as Delivered",
@@ -57,7 +57,7 @@ export const orderStatusMap = {
     userAction: null,
   },
   Received: {
-    displayName: "Order Received!",
+    displayName: "Order Completed",
     userDescription: "You marked the order as received!",
     restaurantAction: null,
     restaurantDescription: "Good job! Customer has received the order!",
