@@ -63,6 +63,8 @@ export interface OrderParts {
   status: OrderStatusStatus;
   deliveryAddress: string;
   phoneNo: string;
+  userSeen: boolean;
+  restaurantSeen: boolean;
   items: OrderParts_items[];
   restaurant: OrderParts_restaurant | null;
   statusHistory: OrderParts_statusHistory[];

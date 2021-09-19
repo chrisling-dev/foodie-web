@@ -69,6 +69,8 @@ export interface getOrders_getOrders_orders {
   status: OrderStatusStatus;
   deliveryAddress: string;
   phoneNo: string;
+  userSeen: boolean;
+  restaurantSeen: boolean;
   items: getOrders_getOrders_orders_items[];
   restaurant: getOrders_getOrders_orders_restaurant | null;
   statusHistory: getOrders_getOrders_orders_statusHistory[];

@@ -19,7 +19,7 @@ const GET_ORDERS_QUERY = gql`
 `;
 
 const useGetOrders = (
-  options: QueryHookOptions<getOrders, getOrdersVariables>
+  options?: QueryHookOptions<getOrders, getOrdersVariables>
 ) => {
   const { data, ...others } = useQuery<getOrders, getOrdersVariables>(
     GET_ORDERS_QUERY,

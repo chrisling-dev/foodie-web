@@ -6,7 +6,7 @@ import { getOrder_getOrder_order } from "../../__generated__/getOrder";
 import { OrderStatusStatus, UserRole } from "../../__generated__/globalTypes";
 import Button from "../button/button";
 import OrderItem from "./order-item/order-item";
-import { orderStatusMap } from "./order-status.map";
+import { orderStatusMap } from "../../utils/order-status.map";
 
 interface IProps {
   order: getOrder_getOrder_order;

@@ -16,7 +16,7 @@ const MyOrder = () => {
     pollInterval: done ? 0 : 1000,
     skip: isNaN(+id),
     onCompleted({ getOrder }) {
-      if (getOrder.order?.status === OrderStatusStatus.Delivered) setDone(true);
+      if (getOrder.order?.status === OrderStatusStatus.Received) setDone(true);
     },
   });
 

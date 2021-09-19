@@ -8,6 +8,8 @@ export const ORDER_FRAGMENT = gql`
     status
     deliveryAddress
     phoneNo
+    userSeen
+    restaurantSeen
     items {
       id
       description
