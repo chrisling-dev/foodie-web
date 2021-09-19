@@ -35,6 +35,13 @@ export interface AddToCartInput {
   add?: boolean | null;
 }
 
+export interface BlockUserInput {
+  blockId?: number | null;
+  restaurantId?: number | null;
+  all?: boolean | null;
+  unblock?: boolean | null;
+}
+
 export interface BrowseRestaurantsInput {
   query?: string | null;
   offset?: number | null;
@@ -84,8 +91,7 @@ export interface MyRestaurantInput {
 }
 
 export interface SeenOrderInput {
-  id?: number | null;
-  all?: boolean | null;
+  id: number;
 }
 
 export interface SignInInput {

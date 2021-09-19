@@ -35,11 +35,11 @@ const OrderRow: React.FC<IProps> = ({ order }) => {
       <div className=" w-full flex items-center justify-between">
         <div>
           <p
-            className={` font-semibold  text-sm ${
-              notifyUser ? "text-primary" : "text-gray-400"
+            className={` text-sm ${
+              notifyUser ? "text-primary font-semibold" : "text-gray-400"
             }`}
           >
-            {orderStatusMap[order.status].displayName}
+            #{order.id} | {orderStatusMap[order.status].displayName}
           </p>
           <p className=" font-semibold text-gray-700">
             {order.restaurant ? (

@@ -67,6 +67,7 @@ export interface getOrders_getOrders_orders {
   createdAt: any;
   price: number;
   status: OrderStatusStatus;
+  userBlocked: boolean;
   deliveryAddress: string;
   phoneNo: string;
   userSeen: boolean;

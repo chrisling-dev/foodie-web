@@ -9,6 +9,8 @@ import OrderItem from "./order-item/order-item";
 import { orderStatusMap } from "../../utils/order-status.map";
 import { seenOrder, seenOrderVariables } from "../../__generated__/seenOrder";
 import { gql, useMutation } from "@apollo/client";
+import Modal from "../modal/modal";
+import BlockControl from "./block-control/block-control";
 
 const SEEN_ORDER_MUTATION = gql`
   mutation seenOrder($input: SeenOrderInput!) {
@@ -24,11 +26,13 @@ const SEEN_ORDER_MUTATION = gql`
 
 interface IProps {
   order: getOrder_getOrder_order;
+  refetch: () => void;
 }
 
-const OrderDetails: React.FC<IProps> = ({ order }) => {
+const OrderDetails: React.FC<IProps> = ({ order, refetch }) => {
   const displayDate = dateGenerator(order.createdAt);
   const [showItemDetails, setShowItemDetails] = useState(false);
+  const [showBlockActions, setShowBlockActions] = useState(false);
   const [seenOrderMutation] = useMutation<seenOrder, seenOrderVariables>(
     SEEN_ORDER_MUTATION
   );
@@ -40,6 +44,7 @@ const OrderDetails: React.FC<IProps> = ({ order }) => {
       ? orderStatusMap[order.status].userAction
       : orderStatusMap[order.status].restaurantAction
     : undefined;
+
   const statusDescription = (status: OrderStatusStatus): string =>
     data?.me
       ? orderStatusMap[status][
@@ -49,6 +54,10 @@ const OrderDetails: React.FC<IProps> = ({ order }) => {
         ] || ""
       : "";
 
+  const onBlockSuccess = () => {
+    setShowBlockActions(false);
+    refetch();
+  };
   useEffect(() => {
     if (data?.me) {
       if (
@@ -168,21 +177,59 @@ const OrderDetails: React.FC<IProps> = ({ order }) => {
             </div>
           </div>
         </div>
-        <div className=" w-full lg:w-3/5 p-3">
-          <p className=" small-title mb-3">Activities</p>
-          {order.statusHistory.map((history) => (
-            <div
-              key={history.id}
-              className=" py-2 border-b border-solid border-gray-100"
-            >
-              <p className=" text-xs text-gray-400">
-                {dateGenerator(history.createdAt)}
-              </p>
-              <p className=" text-gray-600">
-                {statusDescription(history.status)}
-              </p>
-            </div>
-          ))}
+        <div className=" w-full lg:w-3/5 px-3 flex flex-col lg:flex-col-reverse">
+          <div>
+            <p className=" small-title mb-3">Activities</p>
+            {order.statusHistory.map((history) => (
+              <div
+                key={history.id}
+                className=" py-2 border-b border-solid border-gray-100"
+              >
+                <p className=" text-xs text-gray-400">
+                  {dateGenerator(history.createdAt)}
+                </p>
+                <p className=" text-gray-600">
+                  {statusDescription(history.status)}
+                </p>
+              </div>
+            ))}
+          </div>
+          {data?.me?.role === UserRole.RestaurantOwner &&
+            order.user &&
+            order.restaurant && (
+              <div className=" mt-3 lg:mb-3 lg:mt-0">
+                <p className=" small-title">Other Actions</p>
+                <div className=" py-2">
+                  <p className=" text-sm text-gray-500">
+                    If you think the customer is malicious or inappropriate, you
+                    may block them from ordering from you. You can always
+                    unblock them if you change your mind.
+                  </p>
+                  <div className=" w-full flex items-center justify-end">
+                    <Button
+                      className=" w-full lg:w-auto mt-3"
+                      appearance="primary"
+                      intent="danger"
+                      onClick={setShowBlockActions.bind(this, true)}
+                    >
+                      {order.userBlocked ? "Unblock User" : "Block User"}
+                    </Button>
+                  </div>
+                </div>
+                <Modal
+                  title={order.userBlocked ? "Unblock User" : "Block User"}
+                  showModal={showBlockActions}
+                >
+                  <BlockControl
+                    blocked={order.userBlocked}
+                    user={order.user}
+                    restaurant={order.restaurant}
+                    onCancel={setShowBlockActions.bind(this, false)}
+                    onSuccess={onBlockSuccess}
+                  />
+                </Modal>
+              </div>
+            )}
         </div>
       </div>
     </div>

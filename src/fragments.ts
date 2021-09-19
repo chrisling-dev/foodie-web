@@ -6,6 +6,7 @@ export const ORDER_FRAGMENT = gql`
     createdAt
     price
     status
+    userBlocked
     deliveryAddress
     phoneNo
     userSeen

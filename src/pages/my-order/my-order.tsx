@@ -10,10 +10,12 @@ const MyOrder = () => {
   const { id } = useParams<{ id: string }>();
   const [done, setDone] = useState(false);
 
-  const { data, loading } = useGetOrder({
+  const { data, loading, refetch } = useGetOrder({
     variables: {
       input: { id: +id },
     },
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-and-network",
     pollInterval: done ? 0 : 1000,
     skip: isNaN(+id),
     onCompleted({ getOrder }) {
@@ -26,7 +28,7 @@ const MyOrder = () => {
       <Back />
       <div className=" w-full">
         {!loading && data?.getOrder.order && (
-          <OrderDetails order={data.getOrder.order} />
+          <OrderDetails order={data.getOrder.order} refetch={refetch} />
         )}
         {!loading && data?.getOrder.error?.message}
       </div>

@@ -61,6 +61,7 @@ export interface OrderParts {
   createdAt: any;
   price: number;
   status: OrderStatusStatus;
+  userBlocked: boolean;
   deliveryAddress: string;
   phoneNo: string;
   userSeen: boolean;
