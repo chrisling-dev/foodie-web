@@ -27,18 +27,18 @@ export const orderStatusMap = {
       text: "Mark as Delivered",
       intent: "primary",
     },
-    restaurantDescription: "You are sending the order to customer.",
+    restaurantDescription: "The order is out for delivery.",
     role: UserRole.RestaurantOwner,
     userAction: null,
   },
   Placed: {
     displayName: "Order Placed",
-    userDescription: "Sending your order to the kitchen!",
+    userDescription: "You placed this order.",
     restaurantAction: {
       text: "Process Order",
       intent: "primary",
     },
-    restaurantDescription: "You have a new order!",
+    restaurantDescription: "Customer placed a new order!",
     role: UserRole.RestaurantOwner,
     userAction: {
       text: "Cancel Order",
@@ -47,7 +47,7 @@ export const orderStatusMap = {
   },
   Processing: {
     displayName: "Processing Order",
-    userDescription: "The restaurant is preparing your order.",
+    userDescription: "The restaurant started preparing your order.",
     restaurantAction: {
       text: "Send for Delivery",
       intent: "primary",

@@ -6,14 +6,16 @@ export const ORDER_FRAGMENT = gql`
     createdAt
     price
     status
-    statusHistory {
+    items {
       id
-      createdAt
-      status
-      user {
+      description
+      name
+      photo
+      price
+      quantity
+      dish {
         id
         name
-        role
       }
     }
     restaurant {
@@ -22,15 +24,14 @@ export const ORDER_FRAGMENT = gql`
       description
       backgroundImage
     }
-    items {
+    statusHistory {
       id
-      name
-      quantity
-      price
-      photo
-      dish {
+      createdAt
+      status
+      user {
         id
         name
+        role
       }
     }
   }

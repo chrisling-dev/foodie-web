@@ -27,6 +27,7 @@ const MyOrder = () => {
         {!loading && data?.getOrder.order && (
           <OrderDetails order={data.getOrder.order} />
         )}
+        {!loading && data?.getOrder.error?.message}
       </div>
     </PageContainer>
   );

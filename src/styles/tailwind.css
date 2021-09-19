@@ -19,6 +19,9 @@
 .skeleton {
   @apply bg-gray-300 animate-pulse;
 }
+.small-title {
+  @apply text-gray-400 text-sm;
+}
 .transform-300 {
   @apply duration-300;
 }

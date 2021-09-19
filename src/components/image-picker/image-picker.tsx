@@ -85,7 +85,7 @@ const ImagePicker = React.forwardRef<ImagePickerRefType, IProps>(
         ref={containerRef}
       >
         <p>{label ?? "Upload a File"}</p>
-        <p className=" text-gray-400 text-sm text-center">
+        <p className=" small-title text-center">
           Click "Select File" or drag your image into this box.
         </p>
         <Button

@@ -15,6 +15,31 @@ export interface getOrder_getOrder_error {
   message: string;
 }
 
+export interface getOrder_getOrder_order_items_dish {
+  __typename: "Dish";
+  id: number;
+  name: string;
+}
+
+export interface getOrder_getOrder_order_items {
+  __typename: "OrderItem";
+  id: number;
+  description: string | null;
+  name: string;
+  photo: string | null;
+  price: number;
+  quantity: number;
+  dish: getOrder_getOrder_order_items_dish | null;
+}
+
+export interface getOrder_getOrder_order_restaurant {
+  __typename: "Restaurant";
+  id: number;
+  name: string;
+  description: string;
+  backgroundImage: string | null;
+}
+
 export interface getOrder_getOrder_order_statusHistory_user {
   __typename: "User";
   id: number;
@@ -30,39 +55,15 @@ export interface getOrder_getOrder_order_statusHistory {
   user: getOrder_getOrder_order_statusHistory_user | null;
 }
 
-export interface getOrder_getOrder_order_restaurant {
-  __typename: "Restaurant";
-  id: number;
-  name: string;
-  description: string;
-  backgroundImage: string | null;
-}
-
-export interface getOrder_getOrder_order_items_dish {
-  __typename: "Dish";
-  id: number;
-  name: string;
-}
-
-export interface getOrder_getOrder_order_items {
-  __typename: "OrderItem";
-  id: number;
-  name: string;
-  quantity: number;
-  price: number;
-  photo: string | null;
-  dish: getOrder_getOrder_order_items_dish | null;
-}
-
 export interface getOrder_getOrder_order {
   __typename: "OrderWithStatus";
   id: number;
   createdAt: any;
   price: number;
   status: OrderStatusStatus;
-  statusHistory: getOrder_getOrder_order_statusHistory[];
-  restaurant: getOrder_getOrder_order_restaurant | null;
   items: getOrder_getOrder_order_items[];
+  restaurant: getOrder_getOrder_order_restaurant | null;
+  statusHistory: getOrder_getOrder_order_statusHistory[];
 }
 
 export interface getOrder_getOrder {
