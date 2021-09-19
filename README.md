@@ -19,7 +19,7 @@
 - [x] Status can not be changed by a different user than is stated above
 - [x] Orders should have a history about the date and time of the status changing
 - [x] Both Regular Users and Restaurant Owners should be able to see a list of the orders
-- [ ] Restaurant Owners have the ability to block a User
+- [x] Restaurant Owners have the ability to block a User
 
 ## Regular User flows (Screens)
 
@@ -43,8 +43,7 @@
 - [x] Delete meal
 - [x] My orders
 - [x] Order details
-- [ ] Block user
-- [ ] Blocked Users: Can unblock user
+- [x] Block user: and unblock users
 
 # Project Structure
 

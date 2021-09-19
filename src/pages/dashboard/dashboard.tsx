@@ -62,9 +62,6 @@ const Dashboard = () => {
             </div>
           )}
         </div>
-        <div className=" w-full lg:max-w-xs">
-          <p className=" page-title mt-4 lg:mt-0 lg:pl-3">Recent Activities</p>
-        </div>
       </div>
     </PageContainer>
   );
